@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
-import { useTheme } from "next-themes";
+import { MoonIcon, SunIcon } from '@radix-ui/react-icons';
+import { useTheme } from 'next-themes';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
     Tooltip,
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from '@/components/ui/tooltip';
 
 export function ModeToggle() {
     const { setTheme, theme } = useTheme();
@@ -23,7 +23,7 @@ export function ModeToggle() {
                         variant="outline"
                         size="icon"
                         onClick={() =>
-                            setTheme(theme === "dark" ? "light" : "dark")
+                            setTheme(theme === 'dark' ? 'light' : 'dark')
                         }
                     >
                         <SunIcon className="w-[1.2rem] h-[1.2rem] rotate-90 scale-0 transition-transform ease-in-out duration-500 dark:rotate-0 dark:scale-100" />

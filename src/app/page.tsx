@@ -1,10 +1,10 @@
-import Link from "next/link";
-import Image from "next/image";
-import { PanelsTopLeft } from "lucide-react";
-import { ArrowRightIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
+import Link from 'next/link';
+import Image from 'next/image';
+import { PanelsTopLeft } from 'lucide-react';
+import { ArrowRightIcon, GitHubLogoIcon } from '@radix-ui/react-icons';
 
-import { Button } from "@/components/ui/button";
-import { ModeToggle } from "@/components/mode-toggle";
+import { Button } from '@/components/ui/button';
+import { ModeToggle } from '@/components/mode-toggle';
 
 export default function HomePage() {
     return (
@@ -100,7 +100,7 @@ export default function HomePage() {
             <footer className="py-6 md:py-0 border-t border-border/40">
                 <div className="container flex flex-col items-center justify-center gap-4 md:h-24 md:flex-row">
                     <p className="text-balance text-center text-sm leading-loose text-muted-foreground">
-                        Built on top of{" "}
+                        Built on top of{' '}
                         <Link
                             href="https://ui.shadcn.com"
                             target="_blank"
@@ -109,7 +109,7 @@ export default function HomePage() {
                         >
                             shadcn/ui
                         </Link>
-                        . The source code is available on{" "}
+                        . The source code is available on{' '}
                         <Link
                             href="https://github.com/salimi-my/shadcn-ui-sidebar"
                             target="_blank"
