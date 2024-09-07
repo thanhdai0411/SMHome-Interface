@@ -1,5 +1,5 @@
 {
-  "name": "smart-home",
+  "name": "sm-home",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,9 +8,11 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\""
-
   },
   "dependencies": {
+    "@clerk/localizations": "^2.8.1",
+    "@clerk/nextjs": "^5.4.1",
+    "@clerk/themes": "^2.1.27",
     "@radix-ui/react-avatar": "^1.1.0",
     "@radix-ui/react-collapsible": "^1.1.0",
     "@radix-ui/react-dialog": "^1.1.1",
