@@ -32,7 +32,6 @@ export function Navbar({ title }: NavbarProps) {
                                         userButtonPopoverFooter: {
                                             display: 'none',
                                         },
-                                        
                                     },
                                 }}
                             />

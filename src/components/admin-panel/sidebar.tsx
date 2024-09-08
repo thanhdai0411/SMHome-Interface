@@ -12,7 +12,7 @@ export function Sidebar() {
     const sidebar = useStore(useSidebarToggle, (state) => state);
     if (!sidebar) return null;
 
-    const branchApp  = process.env.NEXT_PUBLIC_BRANCH_NAME || "SMHome"
+    const branchApp = process.env.NEXT_PUBLIC_BRANCH_NAME || 'SMHome';
 
     return (
         <aside

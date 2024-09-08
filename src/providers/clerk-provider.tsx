@@ -6,12 +6,5 @@ export default function ClerkProviderr({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    return (
-        <ClerkProvider
-            localization={viVN}
-            
-        >
-            {children}
-        </ClerkProvider>
-    );
+    return <ClerkProvider localization={viVN}>{children}</ClerkProvider>;
 }
