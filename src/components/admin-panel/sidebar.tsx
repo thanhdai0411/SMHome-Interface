@@ -10,8 +10,9 @@ import { SidebarToggle } from '@/components/admin-panel/sidebar-toggle';
 
 export function Sidebar() {
     const sidebar = useStore(useSidebarToggle, (state) => state);
-
     if (!sidebar) return null;
+
+    const branchApp = process.env.NEXT_PUBLIC_BRANCH_NAME || 'SMHome';
 
     return (
         <aside
@@ -45,7 +46,7 @@ export function Sidebar() {
                                     : 'translate-x-0 opacity-100',
                             )}
                         >
-                            Brand
+                            {branchApp}
                         </h1>
                     </Link>
                 </Button>

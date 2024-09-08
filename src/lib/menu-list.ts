@@ -27,6 +27,8 @@ type Group = {
     menus: Menu[];
 };
 
+export const getHomeRoute = '/dashboard';
+
 export function getMenuList(pathname: string): Group[] {
     return [
         {
@@ -34,7 +36,7 @@ export function getMenuList(pathname: string): Group[] {
             menus: [
                 {
                     href: '/dashboard',
-                    label: 'Dashboard',
+                    label: 'Tổng quan',
                     active: pathname.includes('/dashboard'),
                     icon: LayoutGrid,
                     submenus: [],
@@ -42,11 +44,11 @@ export function getMenuList(pathname: string): Group[] {
             ],
         },
         {
-            groupLabel: 'Contents',
+            groupLabel: 'Phòng',
             menus: [
                 {
                     href: '',
-                    label: 'Posts',
+                    label: 'Phòng',
                     active: pathname.includes('/posts'),
                     icon: SquarePen,
                     submenus: [
@@ -62,38 +64,35 @@ export function getMenuList(pathname: string): Group[] {
                         },
                     ],
                 },
-                {
-                    href: '/categories',
-                    label: 'Categories',
-                    active: pathname.includes('/categories'),
-                    icon: Bookmark,
-                    submenus: [],
-                },
-                {
-                    href: '/tags',
-                    label: 'Tags',
-                    active: pathname.includes('/tags'),
-                    icon: Tag,
-                    submenus: [],
-                },
             ],
         },
         {
-            groupLabel: 'Settings',
+            groupLabel: 'Cài đặt',
             menus: [
                 {
                     href: '/users',
-                    label: 'Users',
+                    label: 'Người dùng',
                     active: pathname.includes('/users'),
                     icon: Users,
                     submenus: [],
                 },
                 {
-                    href: '/account',
-                    label: 'Account',
+                    href: '/configs',
+                    label: 'Cấu hình',
                     active: pathname.includes('/account'),
                     icon: Settings,
-                    submenus: [],
+                    submenus: [
+                        {
+                            href: '/posts',
+                            label: 'All Posts',
+                            active: pathname === '/posts',
+                        },
+                        {
+                            href: '/posts/new',
+                            label: 'New Post',
+                            active: pathname === '/posts/new',
+                        },
+                    ],
                 },
             ],
         },
