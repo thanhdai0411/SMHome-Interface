@@ -1,42 +1,55 @@
+import createUser from '@/actions/createUser';
 import { ContentLayout } from '@/components/layouts/content-layout';
-import { columns, UserData } from '@/components/user/columns';
+import { columns } from '@/components/user/columns';
 import { DataTableUser } from '@/components/user/data-table';
 import { clerkClient } from '@/configs/clerk';
+import { UserMapping } from '@/types/user';
+import { User } from '@clerk/backend';
 
-async function getData(): Promise<UserData[]> {
-    // Fetch data from your API here.
-    const userList = await clerkClient.users.getUserList({
-        limit: 1,
-        offset: 1,
+interface SearchParams {
+    page?: string;
+    limit?: string;
+    search?: string;
+}
+
+interface UsersPageProps {
+    searchParams: SearchParams;
+}
+
+async function getData(searchParams: SearchParams): Promise<{
+    data: UserMapping[];
+    totalCount: number;
+}> {
+    const limit = Number(searchParams.limit || 10);
+    const page = Number(searchParams.page || 1);
+
+    const { data, totalCount } = await clerkClient.users.getUserList({
+        limit: limit,
+        offset: (page - 1) * limit,
+        query: searchParams?.search,
     });
 
-    return [
-        {
-            id: '728ed52f',
-            amount: 100,
-            status: 'pending',
-            email: 'm@example.com',
-        },
-        {
-            id: '728ed53f',
-            amount: 100,
-            status: 'pending',
-            email: 'm@example.com',
-        },
-        {
-            id: '728ed54f',
-            amount: 100,
-            status: 'pending',
-            email: 'm@example.com',
-        },
-    ];
-}
-export default async function UsersPage() {
-    const data = await getData();
+    const resRules = await Promise.all(
+        data.map(async (v) => {
+            const resR = await clerkClient.users.getOrganizationMembershipList({
+                userId: v.id,
+                limit: 100,
+            });
+            return {
+                ...v,
+                roles: resR.data,
+            };
+        }),
+    );
 
+    return JSON.parse(JSON.stringify({ data: resRules, totalCount }));
+}
+
+export default async function UsersPage({ searchParams }: UsersPageProps) {
+    const { data, totalCount } = await getData(searchParams);
     return (
-        <ContentLayout title="Users">
-            <DataTableUser columns={columns} data={data} />
+        <ContentLayout title="Danh sách người dùng">
+            <DataTableUser data={data} totalCount={totalCount} />
         </ContentLayout>
     );
 }
