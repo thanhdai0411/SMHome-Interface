@@ -1,11 +1,9 @@
 import {
-    Tag,
-    Users,
-    Settings,
-    Bookmark,
-    SquarePen,
     LayoutGrid,
     LucideIcon,
+    Settings,
+    SquarePen,
+    Users
 } from 'lucide-react';
 
 type Submenu = {
@@ -79,18 +77,13 @@ export function getMenuList(pathname: string): Group[] {
                 {
                     href: '/configs',
                     label: 'Cấu hình',
-                    active: pathname.includes('/account'),
+                    active: pathname.includes('/configs'),
                     icon: Settings,
                     submenus: [
                         {
-                            href: '/posts',
-                            label: 'All Posts',
-                            active: pathname === '/posts',
-                        },
-                        {
-                            href: '/posts/new',
-                            label: 'New Post',
-                            active: pathname === '/posts/new',
+                            href: '/configs/node',
+                            label: 'Cấu hình Node',
+                            active: pathname === '/configs/node',
                         },
                     ],
                 },

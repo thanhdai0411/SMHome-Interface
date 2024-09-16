@@ -7,7 +7,7 @@ import {
     getCoreRowModel,
     getFilteredRowModel,
     getPaginationRowModel,
-    getSortedRowModel,
+    PaginationState,
     SortingState,
     useReactTable,
     VisibilityState,
@@ -21,26 +21,36 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table';
-import { useState } from 'react';
-import { Button } from './button';
-import { Input } from './input';
 import {
-    DropdownMenu,
-    DropdownMenuCheckboxItem,
-    DropdownMenuContent,
-    DropdownMenuTrigger,
-} from './dropdown-menu';
+    ChangeEvent,
+    Dispatch,
+    ReactNode,
+    SetStateAction,
+    useState,
+} from 'react';
 import { DataTablePagination } from './data-table-pagination';
-import { DataTableViewOptions } from './data-table-view-options';
+import { Input } from './input';
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
     data: TData[];
+    pagination: PaginationState;
+    setPagination: Dispatch<SetStateAction<PaginationState>>;
+    totalCount: number;
+    onChangeSearch?: (e: ChangeEvent<HTMLInputElement>) => void;
+    placeholderSearch?: string;
+    elmAfterSearch?: ReactNode;
 }
 
 export function DataTable<TData, TValue>({
     columns,
     data,
+    pagination,
+    setPagination,
+    totalCount,
+    onChangeSearch,
+    placeholderSearch,
+    elmAfterSearch,
 }: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -54,38 +64,36 @@ export function DataTable<TData, TValue>({
         columns,
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
+        manualPagination: true,
+        rowCount: totalCount || 0,
         onSortingChange: setSorting,
-        getSortedRowModel: getSortedRowModel(),
+        // getSortedRowModel: getSortedRowModel(),
         onColumnFiltersChange: setColumnFilters,
         getFilteredRowModel: getFilteredRowModel(),
         onColumnVisibilityChange: setColumnVisibility,
         onRowSelectionChange: setRowSelection,
+        onPaginationChange: setPagination,
         state: {
             sorting,
             columnFilters,
             columnVisibility,
             rowSelection,
+            pagination,
         },
     });
 
     return (
         <div>
-            <div className="flex items-center py-4">
-                <Input
-                    placeholder="Filter emails..."
-                    value={
-                        (table
-                            .getColumn('email')
-                            ?.getFilterValue() as string) ?? ''
-                    }
-                    onChange={(event) =>
-                        table
-                            .getColumn('email')
-                            ?.setFilterValue(event.target.value)
-                    }
-                    className="max-w-sm"
-                />
-                <DataTableViewOptions table={table} />
+            <div className="flex items-center justify-between py-4">
+                {onChangeSearch && (
+                    <Input
+                        placeholder={placeholderSearch || 'Search...'}
+                        onChange={onChangeSearch}
+                        className="max-w-sm"
+                    />
+                )}
+                {elmAfterSearch}
+                {/* <DataTableViewOptions table={table} /> */}
             </div>
 
             <div className="rounded-md border">
