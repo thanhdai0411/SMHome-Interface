@@ -7,14 +7,19 @@ import {
     remove,
     set,
 } from 'firebase/database';
+import { IDeviceConfigDTO } from './deviceConfig';
+import { ISensorConfigDTO } from './sensorConfig';
 
-interface DeviceDTO {
+export interface INodeConfigDTO {
     nodeId: string;
     name: string;
     icon: string;
     color?: string;
-    backgroundColor?: string;
     active: boolean;
+    styleON?: string;
+    styleOFF?: string;
+    deviceItem?: IDeviceConfigDTO[];
+    sensorItem?: ISensorConfigDTO[];
 }
 
 interface IGetConfig {
@@ -22,19 +27,24 @@ interface IGetConfig {
     nodeId: string;
 }
 
+interface IGetNode {
+    callBack: (data: DatabaseReference) => void;
+}
+
 interface IRemoveConfig {
     nodeId: string;
 }
 
-export function setNodeConfig({ nodeId, ...data }: DeviceDTO) {
+export function setNodeConfig({ nodeId, ...data }: INodeConfigDTO) {
     set(ref(dbRealtime, `${ROOT_NODE}/${nodeId}/config`), {
+        nodeId: nodeId,
         ...data,
     });
 }
 
 export function getNodeConfig({ callBack, nodeId }: IGetConfig) {
     const starCountRef = ref(dbRealtime, `${ROOT_NODE}/${nodeId}/config`);
-    onValue(starCountRef, (snapshot) => {
+    return onValue(starCountRef, (snapshot) => {
         const data = snapshot.val();
         callBack(data);
     });
@@ -42,4 +52,12 @@ export function getNodeConfig({ callBack, nodeId }: IGetConfig) {
 
 export function removeNode({ nodeId }: IRemoveConfig) {
     remove(ref(dbRealtime, `${ROOT_NODE}/${nodeId}`));
+}
+
+export function getNode({ callBack }: IGetNode) {
+    const starCountRef = ref(dbRealtime, `${ROOT_NODE}`);
+    return onValue(starCountRef, (snapshot) => {
+        const data = snapshot.val();
+        callBack(data);
+    });
 }

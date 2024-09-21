@@ -1,20 +1,20 @@
 'use client';
 
-import Link from 'next/link';
 import { Ellipsis, LogOut } from 'lucide-react';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { cn } from '@/lib/utils';
-import { getMenuList } from '@/lib/menu-list';
+import { CollapseMenuButton } from '@/components/admin-panel/collapse-menu-button';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { CollapseMenuButton } from '@/components/admin-panel/collapse-menu-button';
 import {
     Tooltip,
-    TooltipTrigger,
     TooltipContent,
     TooltipProvider,
+    TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { getMenuList } from '@/lib/menu-list';
+import { cn } from '@/lib/utils';
 import { SignOutButton } from '@clerk/nextjs';
 
 interface MenuProps {
@@ -31,7 +31,7 @@ export function Menu({ isOpen }: MenuProps) {
                 <ul className="flex flex-col min-h-[calc(100vh-48px-36px-16px-32px)] lg:min-h-[calc(100vh-32px-40px-32px)] items-start space-y-1 px-2">
                     {menuList.map(({ groupLabel, menus }, index) => (
                         <li
-                            className={cn('w-full', groupLabel ? 'pt-5' : '')}
+                            className={cn('w-full', groupLabel ? 'pt-2' : '')}
                             key={index}
                         >
                             {(isOpen && groupLabel) || isOpen === undefined ? (
@@ -54,7 +54,7 @@ export function Menu({ isOpen }: MenuProps) {
                                     </Tooltip>
                                 </TooltipProvider>
                             ) : (
-                                <p className="pb-2"></p>
+                                <p className="pb-0"></p>
                             )}
                             {menus.map(
                                 (

@@ -23,7 +23,7 @@ export default function HomePage() {
                     </>
                 }
                 title="SMHome Thông minh cho mọi nhà"
-                desc="Hệ thống nhà thông minh. Giám sát và điều khiển từ xa"
+                desc="Hệ thống nhà thông minh. Giám sát an toàn và điều khiển thông minh"
             />
 
             <FooterLanding />

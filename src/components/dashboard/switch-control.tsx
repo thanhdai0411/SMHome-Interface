@@ -1,37 +1,59 @@
 'use client';
 
-import { getDevice } from '@/actions/firebase/deviceConfig';
-import { DatabaseReference } from 'firebase/database';
-import { useEffect } from 'react';
+import { getDevice, IDeviceConfigDTO, setStatusDevice } from '@/actions/firebase/deviceConfig';
+import { useEffect, useState } from 'react';
 import CardSwitch from '../ui/card-switch';
 
 interface SwitchControlProps {
-    deviceId: string;
+
     nodeId: string;
+    deviceData: IDeviceConfigDTO
 }
 
-function SwitchControl({ deviceId, nodeId }: SwitchControlProps) {
-    const handleChangeChecked = (checked: boolean) => {};
+const statusDeviceTranslate = (checked: boolean) => {
+    return checked ? "ON" : "OFF"
+}
 
-    const callBackCallDevice = (data: DatabaseReference) => {};
+
+
+const bgDeviceStatus = (checked: boolean, styleOff: string, styleOn: string) => {
+    return checked ? styleOn : styleOff
+}
+
+function SwitchControl({ nodeId, deviceData }: SwitchControlProps) {
+    const [status, setStatus] = useState<boolean>(false)
+    const handleChangeChecked = (checked: boolean) => {
+        console.log({ checked })
+        setStatusDevice({
+            deviceId: deviceData.deviceId,
+            nodeId,
+            status: checked
+        })
+    };
+
+    const callBackCallDevice = (data: any) => {
+        setStatus(data.status)
+    };
 
     useEffect(() => {
         const unsubscribe = getDevice({
-            deviceId,
+            deviceId: deviceData.deviceId,
             nodeId,
             callBack: callBackCallDevice,
         });
 
         // Cleanup the listener on component unmount
         return () => unsubscribe();
-    }, []);
+    }, [status, deviceData?.deviceId, nodeId]);
+
 
     return (
         <>
             <CardSwitch
-                name={'Lamp 2'}
+                name={deviceData.name || ""}
                 onCheckedChange={handleChangeChecked}
-                status="ON"
+                className={bgDeviceStatus(status, deviceData.styleOFF, deviceData.styleON)}
+                status={statusDeviceTranslate(status)}
             />
         </>
     );

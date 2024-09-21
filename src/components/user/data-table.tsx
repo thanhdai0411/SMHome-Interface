@@ -125,7 +125,7 @@ export function DataTableUser({ data, totalCount }: DataTableProps) {
                 onChangeSearch={handleSearch}
                 placeholderSearch="Tìm kiếm người dùng ..."
                 totalCount={totalCount}
-                elmAfterSearch={<DialogAddUser />}
+                elmAfterSearch={<DialogAddUser  />}
             />
             {dialogRole && userData && (
                 <DialogAddRole

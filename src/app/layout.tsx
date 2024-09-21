@@ -4,11 +4,13 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/sonner';
+import { ClerkLoaded, ClerkLoading } from '@clerk/nextjs';
+import MyClerkLoading from '@/components/clerk-loading';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-    title: 'Smart Home',
-    description: 'Smart home ui',
+    title: 'SM Home',
+    description: 'SM Home Giám sát an toàn và điều khiển thông minh',
 };
 
 export default function RootLayout({
@@ -18,6 +20,7 @@ export default function RootLayout({
 }>) {
     return (
         <ClerkProviderr>
+
             <html lang="en" suppressHydrationWarning>
                 <body className={inter.className}>
                     <ThemeProvider
@@ -25,9 +28,12 @@ export default function RootLayout({
                         defaultTheme="system"
                         enableSystem
                     >
-                        {children}
+                        <ClerkLoading>
+                            <MyClerkLoading />
+                        </ClerkLoading>
+                        <ClerkLoaded>{children}</ClerkLoaded>
                     </ThemeProvider>
-                    <Toaster  richColors position="top-right" />
+                    <Toaster richColors position="top-right" />
                 </body>
             </html>
         </ClerkProviderr>
