@@ -98,9 +98,9 @@ function DialogAddUser() {
 
     return (
         <div>
-            <Dialog onOpenChange={setOpenDialog} open={openDialog}>
-                <DialogTrigger asChild>
-                    <Button disabled={isPending}>
+            <Dialog onOpenChange={setOpenDialog} open={openDialog} >
+                <DialogTrigger asChild >
+                    <Button disabled={isPending} >
                         <PersonIcon className="mr-2 h-4 w-4" />
                         Thêm người dùng
                     </Button>

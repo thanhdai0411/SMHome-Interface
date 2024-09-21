@@ -1,5 +1,6 @@
 import createUser from '@/actions/createUser';
 import { ContentLayout } from '@/components/layouts/content-layout';
+import { Skeleton } from '@/components/ui/skeleton';
 import { columns } from '@/components/user/columns';
 import { DataTableUser } from '@/components/user/data-table';
 import { clerkClient } from '@/configs/clerk';
@@ -50,6 +51,7 @@ export default async function UsersPage({ searchParams }: UsersPageProps) {
     return (
         <ContentLayout title="Danh sách người dùng">
             <DataTableUser data={data} totalCount={totalCount} />
+
         </ContentLayout>
     );
 }

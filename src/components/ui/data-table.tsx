@@ -84,12 +84,12 @@ export function DataTable<TData, TValue>({
 
     return (
         <div>
-            <div className="flex items-center justify-between py-4">
+            <div className="flex sm:items-center flex-col sm:flex-row gap-2 items-start sm:justify-between justify-start py-4">
                 {onChangeSearch && (
                     <Input
                         placeholder={placeholderSearch || 'Search...'}
                         onChange={onChangeSearch}
-                        className="max-w-sm"
+                        className="max-w-sm sm:w-100%"
                     />
                 )}
                 {elmAfterSearch}

@@ -1,8 +1,8 @@
 import {
+    Disc,
     LayoutGrid,
     LucideIcon,
     Settings,
-    SquarePen,
     Users
 } from 'lucide-react';
 
@@ -42,30 +42,7 @@ export function getMenuList(pathname: string): Group[] {
             ],
         },
         {
-            groupLabel: 'Phòng',
-            menus: [
-                {
-                    href: '',
-                    label: 'Phòng',
-                    active: pathname.includes('/posts'),
-                    icon: SquarePen,
-                    submenus: [
-                        {
-                            href: '/posts',
-                            label: 'All Posts',
-                            active: pathname === '/posts',
-                        },
-                        {
-                            href: '/posts/new',
-                            label: 'New Post',
-                            active: pathname === '/posts/new',
-                        },
-                    ],
-                },
-            ],
-        },
-        {
-            groupLabel: 'Cài đặt',
+            groupLabel: '',
             menus: [
                 {
                     href: '/users',
@@ -74,18 +51,17 @@ export function getMenuList(pathname: string): Group[] {
                     icon: Users,
                     submenus: [],
                 },
+            ],
+        },
+        {
+            groupLabel: '',
+            menus: [
                 {
-                    href: '/configs',
-                    label: 'Cấu hình',
-                    active: pathname.includes('/configs'),
-                    icon: Settings,
-                    submenus: [
-                        {
-                            href: '/configs/node',
-                            label: 'Cấu hình Node',
-                            active: pathname === '/configs/node',
-                        },
-                    ],
+                    href: '/configs/node',
+                    label: 'Cấu hình Node',
+                    active: pathname === '/configs/node',
+                    icon: Disc,
+                    submenus: [],
                 },
             ],
         },

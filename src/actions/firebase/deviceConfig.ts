@@ -21,12 +21,14 @@ interface IUpdateTimerDevice extends IBaseDevice {
     timer: string;
 }
 
-interface IDeviceConfig extends IBaseDevice {
+export interface IDeviceConfigDTO extends IBaseDevice {
     name: string;
     icon: string;
     color?: string;
     backgroundColor?: string;
     active: boolean;
+    styleOFF: string,
+    styleON: string
 }
 
 interface IGetDevice extends IBaseDevice {
@@ -42,7 +44,6 @@ export function setStatusDevice({
     set(ref(dbRealtime, `${ROOT_NODE}/${nodeId}/${deviceId}/status`), status);
 }
 
-
 export function setTimerDevice({
     timer,
     nodeId,
@@ -51,16 +52,17 @@ export function setTimerDevice({
     set(ref(dbRealtime, `${ROOT_NODE}/${nodeId}/${deviceId}/timer`), timer);
 }
 
-
 export function removeDevice({ nodeId, deviceId }: IBaseDevice) {
     remove(ref(dbRealtime, `${ROOT_NODE}/${nodeId}/${deviceId}`));
 }
 
-
-export function setConfigDevice({ nodeId, deviceId, ...data }: IDeviceConfig) {
+export function setConfigDevice({
+    nodeId,
+    deviceId,
+    ...data
+}: IDeviceConfigDTO) {
     set(ref(dbRealtime, `${ROOT_NODE}/${nodeId}/${deviceId}/config`), data);
 }
-
 
 export function getDevice({ callBack, nodeId, deviceId, getBy }: IGetDevice) {
     const refUrl = getBy
