@@ -15,7 +15,7 @@ import SwitchControl from './switch-control';
 
 function HeaderDashboard() {
     const [nodeData, setNodeData] = useState<INodeConfigDTO[]>([]);
-    const [nodeSelect, setNodeSelect] = useState<INodeConfigDTO | null>(null)
+    const [, setNodeSelect] = useState<INodeConfigDTO | null>(null)
     const refSelected = useRef<INodeConfigDTO>()
 
     // get data config
@@ -72,8 +72,8 @@ function HeaderDashboard() {
                         <SelectGroup>
                             {nodeData &&
                                 nodeData.length > 0 &&
-                                nodeData.map((v) => (
-                                    <SelectItem value={v.nodeId}>
+                                nodeData.map((v, index) => (
+                                    <SelectItem value={v.nodeId} key={v.nodeId + index}>
                                         {v.name}
                                     </SelectItem>
                                 ))}
@@ -84,8 +84,8 @@ function HeaderDashboard() {
             <div className={`grid gap-4 grid-cols-1  sm:grid-cols-2 lg:grid-cols-${refSelected.current?.sensorItem?.length} grid-rows-1`}>
 
 
-                {refSelected.current?.sensorItem?.map((v) => <>
-                    {v.active == true && <SensorControl nodeId={refSelected?.current?.nodeId as string} sensorData={v} />}
+                {refSelected.current?.sensorItem?.map((v, index) => <>
+                    {v.active == true && <SensorControl key={index + v.sensorId + refSelected?.current?.nodeId} nodeId={refSelected?.current?.nodeId as string} sensorData={v} />}
 
                 </>
                 )}
@@ -93,8 +93,8 @@ function HeaderDashboard() {
 
             </div>
             <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4  grid-rows-1">
-                {refSelected.current?.deviceItem?.map((v) => <>
-                    {v.active == true && <SwitchControl nodeId={refSelected?.current?.nodeId as string} deviceData={v} />}
+                {refSelected.current?.deviceItem?.map((v, index) => <>
+                    {v.active == true && <SwitchControl key={index + v.deviceId + refSelected?.current?.nodeId} nodeId={refSelected?.current?.nodeId as string} deviceData={v} />}
 
                 </>
                 )}

@@ -78,7 +78,7 @@ function DialogAddRole({ open, setOpen, userData }: DialogAddRoleProps) {
         if (roles) {
             form.setValue('role', roles.role);
         }
-    }, [userData]);
+    }, [userData, form]);
 
     const isHaveRole = useMemo(() => {
         return !!userData?.roles?.[0];
@@ -112,8 +112,8 @@ function DialogAddRole({ open, setOpen, userData }: DialogAddRoleProps) {
                                             defaultValue={field.value}
                                             className="flex flex-col"
                                         >
-                                            {roles.map((v) => (
-                                                <FormItem className="flex items-center space-x-3 space-y-0">
+                                            {roles.map((v, index) => (
+                                                <FormItem key={index} className="flex items-center space-x-3 space-y-0">
                                                     <FormControl>
                                                         <RadioGroupItem
                                                             value={v.key}

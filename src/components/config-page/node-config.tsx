@@ -89,6 +89,7 @@ function NodeConfig() {
             callBack: callBackCallDevice,
         });
         return () => unsubscribe();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleDeleteConfigNode = (index: number) => {

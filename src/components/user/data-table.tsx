@@ -63,7 +63,7 @@ export function DataTableUser({ data, totalCount }: DataTableProps) {
             params.delete('search');
         }
         replace(`${pathname}?${params.toString()}`);
-    }, [pagination.pageIndex, pagination.pageSize, textSearch]);
+    }, [pagination.pageIndex, pagination.pageSize, textSearch, pathname, replace, searchParams ]);
 
     const handleAddRole = (userData: UserMapping) => {
         setDialogRole(true);
@@ -112,6 +112,7 @@ export function DataTableUser({ data, totalCount }: DataTableProps) {
 
     const columsDf = useMemo(
         () => columns({ handleViewProfile, handleAddRole, handleDeleteUser }),
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [],
     );
 
