@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/sheet';
 
 export function SheetMenu() {
+    const branchApp = process.env.NEXT_PUBLIC_BRANCH_NAME || 'SMHome';
     return (
         <Sheet>
             <SheetTrigger className="lg:hidden" asChild>
@@ -35,7 +36,7 @@ export function SheetMenu() {
                         >
                             <PanelsTopLeft className="w-6 h-6 mr-1" />
                             <SheetTitle className="font-bold text-lg">
-                                Brand
+                                {branchApp}
                             </SheetTitle>
                         </Link>
                     </Button>
