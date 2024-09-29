@@ -83,7 +83,7 @@ function NestedSensor({ nestIndex, control, getValues }: NestedSensorProps) {
                                             {showNameDevice(index)}
                                         </AccordionTrigger>
                                         <AccordionContent className="m-1 sm:m-3">
-                                            <div className="grid gap-3 gsm:grid-cols-3 grid-cols-1 grid-rows-2 mt-4">
+                                            <div className="grid gap-3 sm:grid-cols-3 grid-cols-1 grid-rows-2 mt-4">
                                                 <FormHook
                                                     control={control}
                                                     name={`nodeItem.${nestIndex}.sensorItem.${index}.sensorId`}

@@ -20,7 +20,6 @@ export default function RootLayout({
 }>) {
     return (
         <ClerkProviderr>
-
             <html lang="en" suppressHydrationWarning>
                 <body className={inter.className}>
                     <ThemeProvider

@@ -4,6 +4,8 @@ import { Sidebar } from '@/components/admin-panel/sidebar';
 import { useSidebarToggle } from '@/hooks/use-sidebar-toggle';
 import { useStore } from '@/hooks/use-store';
 import { cn } from '@/lib/utils';
+import { SignedIn } from '@clerk/nextjs';
+import FCMNotify from '../notification/fcm-notify';
 
 export default function MainLayout({
     children,
@@ -25,6 +27,11 @@ export default function MainLayout({
             >
                 {children}
             </main>
+
+            <SignedIn>
+                <FCMNotify />
+            </SignedIn>
+
             {/* <footer
                 className={cn(
                 "transition-[margin-left] ease-in-out duration-300",
