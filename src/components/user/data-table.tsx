@@ -36,7 +36,7 @@ export function DataTableUser({ data, totalCount }: DataTableProps) {
 
     const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 0, //initial page index
-        pageSize: 10, //default page size
+        pageSize: 100, //default page size
     });
     const [userId, setUserId] = useState<string | null>(null);
     const [userData, serUserData] = useState<UserMapping | null>(null);

@@ -1,6 +1,8 @@
-import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
+import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getDatabase } from 'firebase/database';
+import { getFirestore } from 'firebase/firestore';
+import { getMessaging, getToken, isSupported } from 'firebase/messaging';
+
 const firebaseConfig = {
     apiKey: 'AIzaSyDmw_bjtsCIyMDEs6BH28p_TGW-gzv0mAs',
     authDomain: 'sm-home-e3d95.firebaseapp.com',
@@ -14,10 +16,17 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
 // firestore
 export const dbFirestore = getFirestore(app);
 
 // firebase realtime
 export const dbRealtime = getDatabase(app);
+
+// firebase messaging
+
+export const messaging = async () => {
+    const supported = await isSupported();
+    return supported ? getMessaging(app) : null;
+};

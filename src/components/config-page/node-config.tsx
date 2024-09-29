@@ -123,7 +123,8 @@ function NodeConfig() {
                     return {
                         ...v,
                         styleOFF: v?.styleOFF ?? "",
-                        styleON: v?.styleON ?? ""
+                        styleON: v?.styleON ?? "",
+                        icon : v?.icon ?? ""
 
                     }
                 })
@@ -135,7 +136,8 @@ function NodeConfig() {
                     return {
                         ...v,
                         unit: v.unit ?? "",
-                        style: v.style ?? ""
+                        style: v.style ?? "",
+                        icon : v?.icon ?? ""
 
                     }
                 })

@@ -21,10 +21,10 @@ async function getData(searchParams: SearchParams): Promise<{
     data: UserMapping[];
     totalCount: number;
 }> {
-    const limit = Number(searchParams.limit || 10);
+    const limit = Number(searchParams.limit || 100);
     const page = Number(searchParams.page || 1);
 
-    const { data, totalCount } = await clerkClient.users.getUserList({
+    const { data, totalCount } = await clerkClient?.users?.getUserList({
         limit: limit,
         offset: (page - 1) * limit,
         query: searchParams?.search,
@@ -32,14 +32,22 @@ async function getData(searchParams: SearchParams): Promise<{
 
     const resRules = await Promise.all(
         data.map(async (v) => {
-            const resR = await clerkClient.users.getOrganizationMembershipList({
-                userId: v.id,
-                limit: 100,
-            });
-            return {
-                ...v,
-                roles: resR.data,
-            };
+            try {
+                const resR =
+                    await clerkClient?.users?.getOrganizationMembershipList({
+                        userId: v.id,
+                        limit: 100,
+                    });
+
+                return {
+                    ...v,
+                    roles: resR?.data || undefined,
+                };
+            } catch (e) {
+                return {
+                    ...v,
+                };
+            }
         }),
     );
 
@@ -51,7 +59,6 @@ export default async function UsersPage({ searchParams }: UsersPageProps) {
     return (
         <ContentLayout title="Danh sách người dùng">
             <DataTableUser data={data} totalCount={totalCount} />
-
         </ContentLayout>
     );
 }

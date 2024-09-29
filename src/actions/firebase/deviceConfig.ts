@@ -14,7 +14,7 @@ interface IBaseDevice {
 }
 
 interface IUpdateStatusDevice extends IBaseDevice {
-    status: boolean;
+    status: number;
 }
 
 interface IUpdateTimerDevice extends IBaseDevice {

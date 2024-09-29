@@ -10,24 +10,23 @@ interface SwitchControlProps {
     deviceData: IDeviceConfigDTO
 }
 
-const statusDeviceTranslate = (checked: boolean) => {
-    return checked ? "ON" : "OFF"
+const statusDeviceTranslate = (checked: number) => {
+    return checked == 1 ? "ON" : "OFF"
 }
 
 
 
-const bgDeviceStatus = (checked: boolean, styleOff: string, styleOn: string) => {
-    return checked ? styleOn : styleOff
+const bgDeviceStatus = (checked: number, styleOff: string, styleOn: string) => {
+    return checked == 1 ? styleOn : styleOff
 }
 
 function SwitchControl({ nodeId, deviceData }: SwitchControlProps) {
-    const [status, setStatus] = useState<boolean>(false)
+    const [status, setStatus] = useState<number>(0)
     const handleChangeChecked = (checked: boolean) => {
-        console.log({ checked })
         setStatusDevice({
             deviceId: deviceData.deviceId,
             nodeId,
-            status: checked
+            status: Number(checked)
         })
     };
 
