@@ -1,6 +1,9 @@
 'use client';
 
 import { getNode, INodeConfigDTO } from '@/actions/firebase/nodeConfig';
+import { SMHomeRole } from '@/constants/roles';
+import useRole from '@/hooks/useRole';
+import { useUser } from '@clerk/nextjs';
 import { useEffect, useRef, useState } from 'react';
 import {
     Select,
@@ -14,6 +17,8 @@ import SensorControl from './sensor-control';
 import SwitchControl from './switch-control';
 
 function HeaderDashboard() {
+    const isAllow = useRole({ role: SMHomeRole.Admin });
+
     const [nodeData, setNodeData] = useState<INodeConfigDTO[]>([]);
     const [, setNodeSelect] = useState<INodeConfigDTO | null>(null);
     const refSelected = useRef<INodeConfigDTO>();

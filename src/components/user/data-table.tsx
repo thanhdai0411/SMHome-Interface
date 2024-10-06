@@ -4,7 +4,10 @@ import { PaginationState } from '@tanstack/react-table';
 
 import deleteUserAction from '@/actions/deleteUser';
 import getUserAction from '@/actions/getUser';
+import { SMHomePermission } from '@/constants/roles';
+import usePermission from '@/hooks/usePermission';
 import { ErrorClerk } from '@/types/error';
+import { UserMapping } from '@/types/user';
 import { handleErrorClerk } from '@/utils/handleError';
 import { User } from '@clerk/backend';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -22,13 +25,16 @@ import DialogConfirm from '../ui/dialog-confirm';
 import { columns } from './columns';
 import DialogAddRole from './dialog-add-role';
 import DialogAddUser from './dialog-add-user';
-import { UserMapping } from '@/types/user';
 interface DataTableProps {
     data: UserMapping[];
     totalCount: number;
 }
 
 export function DataTableUser({ data, totalCount }: DataTableProps) {
+    const canAccessUpdate = usePermission({
+        permissions: [SMHomePermission.Admin],
+    });
+
     const searchParams = useSearchParams();
     const [isPending, startTransition] = useTransition();
     const pathname = usePathname();
@@ -63,7 +69,14 @@ export function DataTableUser({ data, totalCount }: DataTableProps) {
             params.delete('search');
         }
         replace(`${pathname}?${params.toString()}`);
-    }, [pagination.pageIndex, pagination.pageSize, textSearch, pathname, replace, searchParams ]);
+    }, [
+        pagination.pageIndex,
+        pagination.pageSize,
+        textSearch,
+        pathname,
+        replace,
+        searchParams,
+    ]);
 
     const handleAddRole = (userData: UserMapping) => {
         setDialogRole(true);
@@ -111,7 +124,13 @@ export function DataTableUser({ data, totalCount }: DataTableProps) {
     };
 
     const columsDf = useMemo(
-        () => columns({ handleViewProfile, handleAddRole, handleDeleteUser }),
+        () =>
+            columns({
+                handleViewProfile,
+                handleAddRole,
+                handleDeleteUser,
+                canAccessUpdate,
+            }),
         // eslint-disable-next-line react-hooks/exhaustive-deps
         [],
     );
@@ -126,7 +145,7 @@ export function DataTableUser({ data, totalCount }: DataTableProps) {
                 onChangeSearch={handleSearch}
                 placeholderSearch="Tìm kiếm người dùng ..."
                 totalCount={totalCount}
-                elmAfterSearch={<DialogAddUser  />}
+                elmAfterSearch={canAccessUpdate ? <DialogAddUser /> : undefined}
             />
             {dialogRole && userData && (
                 <DialogAddRole

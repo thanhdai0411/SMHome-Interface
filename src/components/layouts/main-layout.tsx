@@ -21,7 +21,7 @@ export default function MainLayout({
             <Sidebar />
             <main
                 className={cn(
-                    'min-h-[calc(100vh_-_56px)] bg-slate-50 dark:bg-slate-900 transition-[margin-left] ease-in-out duration-300',
+                    'min-h-[calc(100vh)] bg-slate-50 dark:bg-slate-900 transition-[margin-left] ease-in-out duration-300',
                     sidebar?.isOpen === false ? 'lg:ml-[90px]' : 'lg:ml-72',
                 )}
             >

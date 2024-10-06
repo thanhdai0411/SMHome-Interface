@@ -12,10 +12,7 @@ import { ErrorClerk } from '@/types/error';
 import { handleErrorClerk } from '@/utils/handleError';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { PersonIcon } from '@radix-ui/react-icons';
-import {
-    useState,
-    useTransition
-} from 'react';
+import { useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -67,7 +64,6 @@ const formSchema = z
 
 export type FormCreateUserType = z.infer<typeof formSchema>;
 
-
 function DialogAddUser() {
     const [isPending, startTransition] = useTransition();
     const [openDialog, setOpenDialog] = useState<boolean>(false);
@@ -98,9 +94,9 @@ function DialogAddUser() {
 
     return (
         <div>
-            <Dialog onOpenChange={setOpenDialog} open={openDialog} >
-                <DialogTrigger asChild >
-                    <Button disabled={isPending} >
+            <Dialog onOpenChange={setOpenDialog} open={openDialog}>
+                <DialogTrigger asChild>
+                    <Button disabled={isPending}>
                         <PersonIcon className="mr-2 h-4 w-4" />
                         Thêm người dùng
                     </Button>

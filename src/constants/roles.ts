@@ -15,3 +15,16 @@ export const roles = [
         desc: 'Chỉ được phép xem và giám sát',
     },
 ];
+
+export enum SMHomeRole {
+    Admin = 'org:admin',
+    Member = 'org:member',
+    Viewer = 'org:viewer',
+}
+
+export enum SMHomePermission {
+    Admin = 'org:smhome:all',
+    Control = 'org:smhome:control',
+    Viewer = 'org:smhome:viewer',
+    UserView = 'org:smhome:user_view',
+}

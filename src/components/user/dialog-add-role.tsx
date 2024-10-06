@@ -113,7 +113,10 @@ function DialogAddRole({ open, setOpen, userData }: DialogAddRoleProps) {
                                             className="flex flex-col"
                                         >
                                             {roles.map((v, index) => (
-                                                <FormItem key={index} className="flex items-center space-x-3 space-y-0">
+                                                <FormItem
+                                                    key={index}
+                                                    className="flex items-center space-x-3 space-y-0"
+                                                >
                                                     <FormControl>
                                                         <RadioGroupItem
                                                             value={v.key}
