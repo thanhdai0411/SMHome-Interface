@@ -16,11 +16,7 @@ import {
     AccordionTrigger,
 } from '@/components/ui/accordion';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-    Plus,
-    Save,
-    Trash2
-} from 'lucide-react';
+import { Plus, Save, Trash2 } from 'lucide-react';
 import { useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -31,7 +27,10 @@ import FormHook from '../ui/form-hook';
 import SwitchHook from '../ui/switch-hook';
 import NestedDevice from './nested-device';
 import NestedSensor from './nested-sensor';
-import { ISensorConfigDTO, setConfigSensor } from '@/actions/firebase/sensorConfig';
+import {
+    ISensorConfigDTO,
+    setConfigSensor,
+} from '@/actions/firebase/sensorConfig';
 
 interface NodeItemForm extends INodeConfigDTO {
     deviceItem?: IDeviceConfigDTO[];
@@ -113,37 +112,33 @@ function NodeConfig() {
             let deviceItem = dataIndex?.deviceItem || [];
             let sensorItem = dataIndex?.sensorItem || [];
 
-
             const dataNodeConfig: INodeConfigDTO = {
                 ...dataIndex,
-            }
+            };
 
             if (deviceItem.length > 0) {
                 deviceItem = deviceItem.map((v) => {
                     return {
                         ...v,
-                        styleOFF: v?.styleOFF ?? "",
-                        styleON: v?.styleON ?? "",
-                        icon : v?.icon ?? ""
-
-                    }
-                })
-                dataNodeConfig.deviceItem = deviceItem
+                        styleOFF: v?.styleOFF ?? '',
+                        styleON: v?.styleON ?? '',
+                        icon: v?.icon ?? '',
+                    };
+                });
+                dataNodeConfig.deviceItem = deviceItem;
             }
 
             if (sensorItem.length > 0) {
                 sensorItem = sensorItem.map((v) => {
                     return {
                         ...v,
-                        unit: v.unit ?? "",
-                        style: v.style ?? "",
-                        icon : v?.icon ?? ""
-
-                    }
-                })
-                dataNodeConfig.sensorItem = sensorItem
+                        unit: v.unit ?? '',
+                        style: v.style ?? '',
+                        icon: v?.icon ?? '',
+                    };
+                });
+                dataNodeConfig.sensorItem = sensorItem;
             }
-
 
             setNodeConfig(dataNodeConfig);
             // device config node
@@ -186,11 +181,10 @@ function NodeConfig() {
 
     const formWatch = form.watch('nodeItem');
 
-
     return (
         <div>
             <div className="grid gap-3 grid-cols-1 grid-rows-1">
-                <Accordion type="single" collapsible >
+                <Accordion type="single" collapsible>
                     <Form {...form}>
                         {formWatch &&
                             formWatch.length > 0 &&
@@ -199,7 +193,7 @@ function NodeConfig() {
                                     <AccordionItem
                                         value={`item-${index + 1}`}
                                         key={index}
-                                        className='border-solid border-2 border-yellow-600 my-2  px-3 rounded-md'
+                                        className="border-solid border-2 border-yellow-600 my-2  px-3 rounded-md"
                                     >
                                         <AccordionTrigger>
                                             Cấu hình Node :{' '}
@@ -233,13 +227,18 @@ function NodeConfig() {
                                                 />
                                             </div>
                                             {/* config device */}
-                                            <Accordion type="single" collapsible >
+                                            <Accordion
+                                                type="single"
+                                                collapsible
+                                            >
                                                 <div className="mt-4">
                                                     <NestedDevice
                                                         control={form.control}
                                                         register={form.register}
                                                         nestIndex={index}
-                                                        getValues={form.getValues}
+                                                        getValues={
+                                                            form.getValues
+                                                        }
                                                     />
                                                 </div>
                                                 <div className="mt-2">
@@ -247,13 +246,13 @@ function NodeConfig() {
                                                         control={form.control}
                                                         register={form.register}
                                                         nestIndex={index}
-                                                        getValues={form.getValues}
+                                                        getValues={
+                                                            form.getValues
+                                                        }
                                                     />
                                                 </div>
                                             </Accordion>
                                             {/* end config device */}
-
-
 
                                             <div className="mt-3 flex justify-end">
                                                 <Button

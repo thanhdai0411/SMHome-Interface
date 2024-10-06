@@ -27,7 +27,14 @@ function NestedSensor({ nestIndex, control, getValues }: NestedSensorProps) {
     });
 
     const handleAddDeviceForm = () => {
-        append([{ name: '', icon: '', active: true, style: "bg-gradient-to-r from-yellow-500" }]);
+        append([
+            {
+                name: '',
+                icon: '',
+                active: true,
+                style: 'bg-gradient-to-r from-yellow-500',
+            },
+        ]);
     };
 
     const handleDeleteDevice = (index: number) => {
@@ -63,11 +70,9 @@ function NestedSensor({ nestIndex, control, getValues }: NestedSensorProps) {
             <AccordionItem
                 value={`item-sensor-${nestIndex + 1}`}
                 key={`item-sensor-${nestIndex + 1}`}
-                className='border-solid border-2 border-blue-500 my-2  px-3 rounded-md'
+                className="border-solid border-2 border-blue-500 my-2  px-3 rounded-md"
             >
-                <AccordionTrigger>
-                    Cấu hình Sensor
-                </AccordionTrigger>
+                <AccordionTrigger>Cấu hình Sensor</AccordionTrigger>
                 <AccordionContent className="m-1 sm:m-3">
                     <Accordion type="single" collapsible>
                         {fields &&
@@ -115,9 +120,6 @@ function NestedSensor({ nestIndex, control, getValues }: NestedSensorProps) {
                                                     label="Style Sensor"
                                                     placeholder="Nhập Style Sensor..."
                                                 />
-
-
-
                                             </div>
                                             <div className="flex items-center space-x-2 my-4">
                                                 <SwitchHook
@@ -141,19 +143,12 @@ function NestedSensor({ nestIndex, control, getValues }: NestedSensorProps) {
                             ))}
                     </Accordion>
 
-                    <Button
-
-                        onClick={handleAddDeviceForm}
-                        className="mt-2 "
-                    >
+                    <Button onClick={handleAddDeviceForm} className="mt-2 ">
                         <Zap className="mr-2 h-4 w-4" />
                         Thêm Sensor
                     </Button>
                 </AccordionContent>
             </AccordionItem>
-
-
-
         </div>
     );
 }

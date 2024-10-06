@@ -27,8 +27,8 @@ export interface IDeviceConfigDTO extends IBaseDevice {
     color?: string;
     backgroundColor?: string;
     active: boolean;
-    styleOFF: string,
-    styleON: string
+    styleOFF: string;
+    styleON: string;
 }
 
 interface IGetDevice extends IBaseDevice {

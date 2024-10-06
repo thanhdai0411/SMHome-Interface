@@ -1,37 +1,38 @@
 'use client';
 
-import { getDevice, IDeviceConfigDTO, setStatusDevice } from '@/actions/firebase/deviceConfig';
+import {
+    getDevice,
+    IDeviceConfigDTO,
+    setStatusDevice,
+} from '@/actions/firebase/deviceConfig';
 import { useEffect, useState } from 'react';
 import CardSwitch from '../ui/card-switch';
 
 interface SwitchControlProps {
-
     nodeId: string;
-    deviceData: IDeviceConfigDTO
+    deviceData: IDeviceConfigDTO;
 }
 
 const statusDeviceTranslate = (checked: number) => {
-    return checked == 1 ? "ON" : "OFF"
-}
-
-
+    return checked == 1 ? 'ON' : 'OFF';
+};
 
 const bgDeviceStatus = (checked: number, styleOff: string, styleOn: string) => {
-    return checked == 1 ? styleOn : styleOff
-}
+    return checked == 1 ? styleOn : styleOff;
+};
 
 function SwitchControl({ nodeId, deviceData }: SwitchControlProps) {
-    const [status, setStatus] = useState<number>(0)
+    const [status, setStatus] = useState<number>(0);
     const handleChangeChecked = (checked: boolean) => {
         setStatusDevice({
             deviceId: deviceData.deviceId,
             nodeId,
-            status: Number(checked)
-        })
+            status: Number(checked),
+        });
     };
 
     const callBackCallDevice = (data: any) => {
-        setStatus(data.status)
+        setStatus(data.status);
     };
 
     useEffect(() => {
@@ -45,13 +46,16 @@ function SwitchControl({ nodeId, deviceData }: SwitchControlProps) {
         return () => unsubscribe();
     }, [status, deviceData?.deviceId, nodeId]);
 
-
     return (
         <>
             <CardSwitch
-                name={deviceData.name || ""}
+                name={deviceData.name || ''}
                 onCheckedChange={handleChangeChecked}
-                className={bgDeviceStatus(status, deviceData.styleOFF, deviceData.styleON)}
+                className={bgDeviceStatus(
+                    status,
+                    deviceData.styleOFF,
+                    deviceData.styleON,
+                )}
                 status={statusDeviceTranslate(status)}
             />
         </>

@@ -35,13 +35,18 @@ export function DataTablePagination<TData>({
             </div>
             <div className="flex items-center space-x-6 lg:space-x-8">
                 <div className="flex items-center space-x-2">
-                    <p className="text-sm font-medium" style={{
-                        display: "-webkit-box",
-                        WebkitLineClamp: 1,
-                        WebkitBoxOrient: "vertical",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                    }}>Số dòng trên 1 trang</p>
+                    <p
+                        className="text-sm font-medium"
+                        style={{
+                            display: '-webkit-box',
+                            WebkitLineClamp: 1,
+                            WebkitBoxOrient: 'vertical',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                        }}
+                    >
+                        Số dòng trên 1 trang
+                    </p>
                     <Select
                         value={`${table.getState().pagination.pageSize}`}
                         onValueChange={(value) => {
@@ -56,24 +61,29 @@ export function DataTablePagination<TData>({
                             />
                         </SelectTrigger>
                         <SelectContent side="top">
-                            {[1, 2, 5, 10, 20, 30, 40, 50, 100].map((pageSize) => (
-                                <SelectItem
-                                    key={pageSize}
-                                    value={`${pageSize}`}
-                                >
-                                    {pageSize}
-                                </SelectItem>
-                            ))}
+                            {[1, 2, 5, 10, 20, 30, 40, 50, 100].map(
+                                (pageSize) => (
+                                    <SelectItem
+                                        key={pageSize}
+                                        value={`${pageSize}`}
+                                    >
+                                        {pageSize}
+                                    </SelectItem>
+                                ),
+                            )}
                         </SelectContent>
                     </Select>
                 </div>
-                <div className="flex w-[100px] items-center justify-center text-sm font-medium" style={{
-                    display: "-webkit-box",
-                    WebkitLineClamp: 1,
-                    WebkitBoxOrient: "vertical",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                }}>
+                <div
+                    className="flex w-[100px] items-center justify-center text-sm font-medium"
+                    style={{
+                        display: '-webkit-box',
+                        WebkitLineClamp: 1,
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                    }}
+                >
                     Trang {table.getState().pagination.pageIndex + 1} của{' '}
                     {table.getPageCount()}
                 </div>

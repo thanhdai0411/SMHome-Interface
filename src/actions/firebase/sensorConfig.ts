@@ -24,7 +24,7 @@ export interface ISensorConfigDTO extends IBaseSensor {
     color?: string;
     backgroundColor?: string;
     active?: boolean;
-    style? : string 
+    style?: string;
 }
 
 interface IGetSensor extends IBaseSensor {
@@ -39,7 +39,6 @@ export function setValueSensor({
 }: IUpdateValueSensor) {
     set(ref(dbRealtime, `${ROOT_NODE}/${nodeId}/${sensorId}/value`), value);
 }
-
 
 export function removeSensor({ nodeId, sensorId }: IBaseSensor) {
     remove(ref(dbRealtime, `${ROOT_NODE}/${nodeId}/${sensorId}`));

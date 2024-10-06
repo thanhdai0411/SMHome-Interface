@@ -56,9 +56,5 @@ async function getData(searchParams: SearchParams): Promise<{
 
 export default async function UsersPage({ searchParams }: UsersPageProps) {
     const { data, totalCount } = await getData(searchParams);
-    return (
-        <ContentLayout title="Danh sách người dùng">
-            <DataTableUser data={data} totalCount={totalCount} />
-        </ContentLayout>
-    );
+    return <DataTableUser data={data} totalCount={totalCount} />;
 }

@@ -18,9 +18,7 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from '@/components/ui/chart';
-import {
-    Select
-} from '@/components/ui/select';
+import { Select } from '@/components/ui/select';
 import { DatePickerWithRange } from '../ui/date-picker';
 
 export const description = 'An interactive area chart';
