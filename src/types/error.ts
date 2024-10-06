@@ -7,5 +7,5 @@ export interface ErrorClerk {
         longMessage: string;
         message: string;
         meta: { [key: string]: string };
-    }[]
+    }[];
 }

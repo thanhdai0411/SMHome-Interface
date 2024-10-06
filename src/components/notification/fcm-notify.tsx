@@ -30,11 +30,15 @@ function FCMNotify() {
                 <></>
             ) : notificationPermissionStatus !== null ? (
                 <Alert className="bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%">
-                    <BellRing className="h-5 w-5" color='white' />
-                    <AlertTitle className="text-lg text-white">Thông báo</AlertTitle>
+                    <BellRing className="h-5 w-5" color="white" />
+                    <AlertTitle className="text-lg text-white">
+                        Thông báo
+                    </AlertTitle>
                     <AlertDescription className="text-base text-white ">
                         Vui lòng Cho phép Thông báo để nhận được những Thông báo
-                        từ hệ thống. Bằng cách nhấp vào icon dấu chấm than bên cạnh thanh địa chỉ và nhấp switch để cho phép Notifications
+                        từ hệ thống. Bằng cách nhấp vào icon dấu chấm than bên
+                        cạnh thanh địa chỉ và nhấp switch để cho phép
+                        Notifications
                     </AlertDescription>
                 </Alert>
             ) : null}

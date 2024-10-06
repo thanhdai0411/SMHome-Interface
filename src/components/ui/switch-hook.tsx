@@ -18,7 +18,7 @@ function SwitchHook<T extends FieldValues, B>({
             name={name}
             render={({ field }) => (
                 <FormItem>
-                    <div className='flex items-center space-x-2'>
+                    <div className="flex items-center space-x-2">
                         <Switch
                             id="airplane-mode"
                             {...field}

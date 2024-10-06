@@ -1,10 +1,4 @@
-import {
-    Disc,
-    LayoutGrid,
-    LucideIcon,
-    Settings,
-    Users
-} from 'lucide-react';
+import { Disc, LayoutGrid, LucideIcon, Settings, Users } from 'lucide-react';
 
 type Submenu = {
     href: string;

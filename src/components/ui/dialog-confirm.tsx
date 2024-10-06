@@ -6,7 +6,7 @@ import {
     DialogContent,
     DialogFooter,
     DialogHeader,
-    DialogTitle
+    DialogTitle,
 } from './dialog';
 
 interface DialogConfirmProps {

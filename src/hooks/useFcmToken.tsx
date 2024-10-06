@@ -7,7 +7,7 @@ import { useUser } from '@clerk/nextjs';
 import { addDoc, collection, doc, setDoc, Timestamp } from 'firebase/firestore';
 import { onMessage, Unsubscribe } from 'firebase/messaging';
 import { useRouter } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 
 async function getNotificationPermissionAndToken() {
@@ -44,7 +44,7 @@ const useFcmToken = () => {
     const retryLoadToken = useRef(0); // Ref to keep track of retry attempts.
     const isLoading = useRef(false); // Ref to keep track if a token fetch is currently in progress.
 
-    const loadToken = async () => {
+    const loadToken = useCallback(async () => {
         // Step 4: Prevent multiple fetches if already fetched or in progress.
         if (isLoading.current) return;
 
@@ -91,14 +91,14 @@ const useFcmToken = () => {
 
         // save token user
         saveTokenWithUser(token, userLogin?.user?.id);
-    };
+    }, [userLogin]);
 
     useEffect(() => {
         // Step 8: Initialize token loading when the component mounts.
         if ('Notification' in window) {
             loadToken();
         }
-    }, []);
+    }, [loadToken]);
 
     useEffect(() => {
         const setupListener = async () => {
@@ -178,7 +178,7 @@ const useFcmToken = () => {
 
         // Step 11: Cleanup the listener when the component unmounts.
         return () => unsubscribe?.();
-    }, [token, router, toast]);
+    }, [token, router]);
 
     return { token, notificationPermissionStatus }; // Return the token and permission status.
 };

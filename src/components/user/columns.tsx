@@ -21,14 +21,16 @@ type Props = {
     handleViewProfile: (userId: string) => void;
     handleAddRole: (userData: UserMapping) => void;
     handleDeleteUser: (userId: string) => void;
+    canAccessUpdate: boolean;
 };
 
 export const columns = ({
     handleViewProfile,
     handleAddRole,
     handleDeleteUser,
+    canAccessUpdate,
 }: Props): ColumnDef<UserMapping>[] => {
-    return [
+    const defineCol: ColumnDef<UserMapping>[] = [
         {
             id: 'select',
             header: ({ table }) => (
@@ -179,4 +181,10 @@ export const columns = ({
             },
         },
     ];
+
+    if (!canAccessUpdate) {
+        defineCol.pop();
+    }
+
+    return defineCol;
 };

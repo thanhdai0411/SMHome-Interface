@@ -27,7 +27,15 @@ function NestedDevice({ nestIndex, control, getValues }: NestedDeviceProps) {
     });
 
     const handleAddDeviceForm = () => {
-        append([{ name: '', icon: '', active: true, styleON: "bg-gradient-to-r from-cyan-500 to-green-400", styleOFF: "" }]);
+        append([
+            {
+                name: '',
+                icon: '',
+                active: true,
+                styleON: 'bg-gradient-to-r from-cyan-500 to-green-400',
+                styleOFF: '',
+            },
+        ]);
     };
 
     const handleDeleteDevice = (index: number) => {
@@ -63,11 +71,9 @@ function NestedDevice({ nestIndex, control, getValues }: NestedDeviceProps) {
             <AccordionItem
                 value={`item-device-${nestIndex + 1}`}
                 key={`item-device-${nestIndex + 1}`}
-                className='border-solid border-2 border-blue-500 my-2  px-3 rounded-md'
+                className="border-solid border-2 border-blue-500 my-2  px-3 rounded-md"
             >
-                <AccordionTrigger>
-                    Cấu hình Device
-                </AccordionTrigger>
+                <AccordionTrigger>Cấu hình Device</AccordionTrigger>
                 <AccordionContent className="m-1 sm:m-3">
                     <Accordion type="single" collapsible>
                         {fields &&
@@ -97,8 +103,6 @@ function NestedDevice({ nestIndex, control, getValues }: NestedDeviceProps) {
                                                     placeholder="Nhập Tên Device..."
                                                 />
 
-
-
                                                 <FormHook
                                                     control={control}
                                                     name={`nodeItem.${nestIndex}.deviceItem.${index}.icon`}
@@ -119,8 +123,6 @@ function NestedDevice({ nestIndex, control, getValues }: NestedDeviceProps) {
                                                     label="Style Device OFF"
                                                     placeholder="Nhập Style Device OFF..."
                                                 />
-
-
                                             </div>
                                             <div className="flex items-center space-x-2 my-4">
                                                 <SwitchHook
@@ -144,19 +146,12 @@ function NestedDevice({ nestIndex, control, getValues }: NestedDeviceProps) {
                             ))}
                     </Accordion>
 
-                    <Button
-
-                        onClick={handleAddDeviceForm}
-                        className="mt-2 "
-                    >
+                    <Button onClick={handleAddDeviceForm} className="mt-2 ">
                         <MonitorSmartphone className="mr-2 h-4 w-4" />
                         Thêm Device
                     </Button>
                 </AccordionContent>
             </AccordionItem>
-
-
-
         </div>
     );
 }

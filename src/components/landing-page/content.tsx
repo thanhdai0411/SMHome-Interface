@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 interface ContentLandingProps {
     title: string;
     desc: string;
-    button: ReactNode;
+    button?: ReactNode;
 }
 
 function ContentLanding({ title, desc, button }: ContentLandingProps) {
@@ -17,9 +17,11 @@ function ContentLanding({ title, desc, button }: ContentLandingProps) {
                     <span className="max-w-[750px] text-center text-lg font-light text-foreground">
                         {desc}
                     </span>
-                    <div className="flex w-full items-center justify-center space-x-4 py-4 md:pb-6">
-                        {button}
-                    </div>
+                    {button && (
+                        <div className="flex w-full items-center justify-center space-x-4 py-4 md:pb-6">
+                            {button}
+                        </div>
+                    )}
                 </section>
             </div>
         </main>
