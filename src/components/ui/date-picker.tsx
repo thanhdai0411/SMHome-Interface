@@ -1,11 +1,10 @@
 'use client';
 
-import * as React from 'react';
 import { CalendarIcon } from '@radix-ui/react-icons';
-import { addDays, format } from 'date-fns';
+import { format } from 'date-fns';
+import * as React from 'react';
 import { DateRange } from 'react-day-picker';
 
-import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import {
@@ -13,14 +12,23 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from '@/components/ui/popover';
+import { cn } from '@/lib/utils';
+
+interface DatePickerWithRangeProps {
+    className?: React.HTMLAttributes<HTMLDivElement>;
+    setDate: React.Dispatch<React.SetStateAction<DateRange | undefined>>;
+    date: DateRange | undefined;
+}
 
 export function DatePickerWithRange({
     className,
-}: React.HTMLAttributes<HTMLDivElement>) {
-    const [date, setDate] = React.useState<DateRange | undefined>({
-        from: new Date(2022, 0, 20),
-        to: addDays(new Date(2022, 0, 20), 20),
-    });
+    setDate,
+    date,
+}: DatePickerWithRangeProps) {
+    // const [date, setDate] = React.useState<DateRange | undefined>({
+    //     from: new Date(2022, 0, 20),
+    //     to: addDays(new Date(2022, 0, 20), 20),
+    // });
 
     return (
         <div className={cn('grid gap-2', className)}>

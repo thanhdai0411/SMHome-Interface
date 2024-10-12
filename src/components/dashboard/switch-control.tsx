@@ -56,6 +56,7 @@ function SwitchControl({ nodeId, deviceData }: SwitchControlProps) {
                     deviceData.styleOFF,
                     deviceData.styleON,
                 )}
+                icon={deviceData?.icon}
                 status={statusDeviceTranslate(status)}
             />
         </>

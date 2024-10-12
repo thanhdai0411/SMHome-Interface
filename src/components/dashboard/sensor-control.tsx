@@ -34,7 +34,7 @@ function SensorControl({ nodeId, sensorData }: SensorControlProps) {
                 className={sensorData?.style || ''}
                 name={sensorData.name}
                 value={`${value} ${sensorData?.unit || ''}`}
-                icon={<ThermometerSun size={80} className="text-red-500" />}
+                icon={sensorData.icon}
             />
         </>
     );
