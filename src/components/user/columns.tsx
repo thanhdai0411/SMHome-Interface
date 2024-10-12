@@ -16,6 +16,7 @@ import {
     DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
 import { capitalizeFirstLetter } from '@/utils/capitalizeFirstLetter';
+import Chip from '../ui/chip';
 
 type Props = {
     handleViewProfile: (userId: string) => void;
@@ -31,30 +32,30 @@ export const columns = ({
     canAccessUpdate,
 }: Props): ColumnDef<UserMapping>[] => {
     const defineCol: ColumnDef<UserMapping>[] = [
-        {
-            id: 'select',
-            header: ({ table }) => (
-                <Checkbox
-                    checked={
-                        table.getIsAllPageRowsSelected() ||
-                        (table.getIsSomePageRowsSelected() && 'indeterminate')
-                    }
-                    onCheckedChange={(value) =>
-                        table.toggleAllPageRowsSelected(!!value)
-                    }
-                    aria-label="Select all"
-                />
-            ),
-            cell: ({ row }) => (
-                <Checkbox
-                    checked={row.getIsSelected()}
-                    onCheckedChange={(value) => row.toggleSelected(!!value)}
-                    aria-label="Select row"
-                />
-            ),
-            enableSorting: false,
-            enableHiding: false,
-        },
+        // {
+        //     id: 'select',
+        //     header: ({ table }) => (
+        //         <Checkbox
+        //             checked={
+        //                 table.getIsAllPageRowsSelected() ||
+        //                 (table.getIsSomePageRowsSelected() && 'indeterminate')
+        //             }
+        //             onCheckedChange={(value) =>
+        //                 table.toggleAllPageRowsSelected(!!value)
+        //             }
+        //             aria-label="Select all"
+        //         />
+        //     ),
+        //     cell: ({ row }) => (
+        //         <Checkbox
+        //             checked={row.getIsSelected()}
+        //             onCheckedChange={(value) => row.toggleSelected(!!value)}
+        //             aria-label="Select row"
+        //         />
+        //     ),
+        //     enableSorting: false,
+        //     enableHiding: false,
+        // },
         {
             accessorKey: 'Người dùng',
             header: 'Người dùng',
@@ -71,7 +72,7 @@ export const columns = ({
                                     src={user.imageUrl}
                                     className="w-10 h-10 rounded-full"
                                 />
-                                <AvatarFallback>US</AvatarFallback>
+                                <AvatarFallback>ND</AvatarFallback>
                             </Avatar>
                         </div>
                         <div className="flex flex-col">
@@ -105,8 +106,13 @@ export const columns = ({
         {
             id: 'roles',
             header: ({ column }) => (
-                <DataTableColumnHeader column={column} title="Quyền hạn" />
+                <DataTableColumnHeader
+                    column={column}
+                    title="Quyền hạn"
+                    className="text-center"
+                />
             ),
+
             cell: ({ row }) => {
                 const user = row.original;
                 const roles =
@@ -116,14 +122,8 @@ export const columns = ({
                         )
                         .join(', ') || undefined;
                 return (
-                    <div className="text-left font-medium">
-                        {!roles ? (
-                            '-'
-                        ) : (
-                            <span className="bg-primary text-primary-foreground rounded-xl px-2 py-1.5">
-                                {roles}
-                            </span>
-                        )}
+                    <div className="text-center font-medium">
+                        {!roles ? '-' : <Chip name={roles} />}
                     </div>
                 );
             },

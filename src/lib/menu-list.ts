@@ -51,9 +51,9 @@ export function getMenuList(pathname: string): Group[] {
             groupLabel: '',
             menus: [
                 {
-                    href: '/configs/node',
+                    href: '/node',
                     label: 'Cấu hình Node',
-                    active: pathname === '/configs/node',
+                    active: pathname === '/node',
                     icon: Disc,
                     submenus: [],
                 },
