@@ -1,16 +1,17 @@
+import { SMHomePermission } from '@/constants/roles';
+import usePermission from '@/hooks/usePermission';
 import { cn } from '@/lib/utils';
 import { BellIcon } from 'lucide-react';
 import { Card } from './card';
 import { Label } from './label';
 import { Switch } from './switch';
-import useRole from '@/hooks/useRole';
-import usePermission from '@/hooks/usePermission';
-import { SMHomePermission } from '@/constants/roles';
+import { Icon } from '@iconify/react';
 interface CardSwitchProps {
     className?: string;
     onCheckedChange: (checked: boolean) => void;
     status: string;
     name: string;
+    icon?: string;
 }
 
 const statusDeviceChecked = (checked: string) => {
@@ -22,6 +23,7 @@ function CardSwitch({
     onCheckedChange,
     status,
     name,
+    icon,
 }: CardSwitchProps) {
     const canControl = usePermission({
         permissions: [SMHomePermission.Control, SMHomePermission.Admin],
@@ -31,7 +33,11 @@ function CardSwitch({
         <Card className={cn(className)}>
             <div className=" flex rounded-md  p-4">
                 <div className="flex-1 space-y-4">
-                    <BellIcon />
+                    <Icon
+                        icon={icon || 'mdi:lamp-outline'}
+                        fontSize={'1.85rem'}
+                        fontWeight={'bold'}
+                    />
                     <p
                         className="text-md font-medium"
                         style={{

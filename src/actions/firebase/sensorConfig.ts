@@ -25,6 +25,8 @@ export interface ISensorConfigDTO extends IBaseSensor {
     backgroundColor?: string;
     active?: boolean;
     style?: string;
+    minThreshold?: string;
+    maxThreshold?: string;
 }
 
 interface IGetSensor extends IBaseSensor {

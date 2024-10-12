@@ -71,13 +71,13 @@ export function DataTable<TData, TValue>({
         onColumnFiltersChange: setColumnFilters,
         getFilteredRowModel: getFilteredRowModel(),
         onColumnVisibilityChange: setColumnVisibility,
-        onRowSelectionChange: setRowSelection,
+        // onRowSelectionChange: setRowSelection,
         onPaginationChange: setPagination,
         state: {
             sorting,
             columnFilters,
             columnVisibility,
-            rowSelection,
+            // rowSelection,
             pagination,
         },
     });

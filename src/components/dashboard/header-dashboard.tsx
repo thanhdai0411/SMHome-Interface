@@ -1,10 +1,8 @@
 'use client';
 
 import { getNode, INodeConfigDTO } from '@/actions/firebase/nodeConfig';
-import { SMHomeRole } from '@/constants/roles';
-import useRole from '@/hooks/useRole';
-import { useUser } from '@clerk/nextjs';
 import { useEffect, useRef, useState } from 'react';
+import { ChartValue } from '../chart/chart-value';
 import {
     Select,
     SelectContent,
@@ -17,8 +15,6 @@ import SensorControl from './sensor-control';
 import SwitchControl from './switch-control';
 
 function HeaderDashboard() {
-    const isAllow = useRole({ role: SMHomeRole.Admin });
-
     const [nodeData, setNodeData] = useState<INodeConfigDTO[]>([]);
     const [, setNodeSelect] = useState<INodeConfigDTO | null>(null);
     const refSelected = useRef<INodeConfigDTO>();
@@ -124,6 +120,11 @@ function HeaderDashboard() {
                     </>
                 ))}
             </div>
+            {refSelected.current && (
+                <div className="grid  grid-cols-1 grid-rows-1">
+                    <ChartValue node={refSelected.current} />
+                </div>
+            )}
         </>
     );
 }
