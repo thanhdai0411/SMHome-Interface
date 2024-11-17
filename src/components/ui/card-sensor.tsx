@@ -6,11 +6,18 @@ interface CardSensorProps {
     name: string;
     icon: string;
     value: string;
+    isAlert?: boolean;
 }
-function CardSensor({ className, name, icon, value }: CardSensorProps) {
+function CardSensor({
+    className,
+    name,
+    icon,
+    value,
+    isAlert = false,
+}: CardSensorProps) {
     return (
-        <Card className={className}>
-            <div className=" flex rounded-md p-4">
+        <Card id={isAlert ? 'blink' : undefined} className={className}>
+            <div className="flex rounded-md p-4">
                 <div className="flex-1 space-y-3">
                     <p className="text-xl font-medium">{name}</p>
                     <p className="text-4xl font-bold">{value}</p>

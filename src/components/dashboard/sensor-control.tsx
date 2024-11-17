@@ -35,6 +35,11 @@ function SensorControl({ nodeId, sensorData }: SensorControlProps) {
                 name={sensorData.name}
                 value={`${value} ${sensorData?.unit || ''}`}
                 icon={sensorData.icon}
+                isAlert={
+                    sensorData.isAlert == true && String(value) == '1'
+                        ? true
+                        : false
+                }
             />
         </>
     );

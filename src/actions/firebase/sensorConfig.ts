@@ -24,6 +24,7 @@ export interface ISensorConfigDTO extends IBaseSensor {
     color?: string;
     backgroundColor?: string;
     active?: boolean;
+    isAlert?: boolean;
     style?: string;
     minThreshold?: string;
     maxThreshold?: string;
