@@ -86,3 +86,16 @@
         @apply bg-background text-foreground;
     }
 }
+
+@keyframes blinking {
+    0% {
+        background-color: 'transparent';
+    }
+
+    100% {
+        background-color: red;
+    }
+}
+#blink {
+    animation: blinking 1s infinite;
+}

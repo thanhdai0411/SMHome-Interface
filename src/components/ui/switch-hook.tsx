@@ -6,11 +6,13 @@ import { Switch } from './switch';
 interface SwitchHookProps<T extends FieldValues, B> {
     control: Control<T, B>;
     name: Path<T>;
+    label? : string
 }
 
 function SwitchHook<T extends FieldValues, B>({
     control,
     name,
+    label
 }: SwitchHookProps<T, B>) {
     return (
         <FormField
@@ -25,7 +27,7 @@ function SwitchHook<T extends FieldValues, B>({
                             checked={field.value}
                             onCheckedChange={field.onChange}
                         />
-                        <Label htmlFor="airplane-mode">Kích hoạt</Label>
+                        <Label htmlFor="airplane-mode">{label ? label : "Kích hoạt"}</Label>
                     </div>
                 </FormItem>
             )}

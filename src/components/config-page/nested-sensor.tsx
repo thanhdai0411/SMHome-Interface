@@ -177,6 +177,14 @@ function NestedSensor({ nestIndex, control, getValues }: NestedSensorProps) {
                                             name={`nodeItem.${nestIndex}.sensorItem.${index}.active`}
                                         />
                                     </div>
+
+                                    <div className="flex items-center space-x-2 my-4">
+                                        <SwitchHook
+                                            control={control}
+                                            label={"Loại alert"}
+                                            name={`nodeItem.${nestIndex}.sensorItem.${index}.isAlert`}
+                                        />
+                                    </div>
                                 </AccordionContent>
                             </AccordionItem>
                         </>
