@@ -2,9 +2,8 @@
 
 import { fetchToken } from '@/actions/firebase/fetchToken';
 import { saveTokenWithUser } from '@/actions/firebase/saveTokenUser';
-import { dbFirestore, messaging } from '@/configs/firebase';
+import { messaging } from '@/configs/firebase';
 import { useUser } from '@clerk/nextjs';
-import { addDoc, collection, doc, setDoc, Timestamp } from 'firebase/firestore';
 import { onMessage, Unsubscribe } from 'firebase/messaging';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -116,26 +115,24 @@ const useFcmToken = () => {
                 const link = payload.fcmOptions?.link || payload.data?.link;
 
                 if (link) {
-                    toast.info(
-                        `${payload.notification?.title}: ${payload.notification?.body}`,
-                        {
-                            action: {
-                                label: 'Visit',
-                                onClick: () => {
-                                    const link =
-                                        payload.fcmOptions?.link ||
-                                        payload.data?.link;
-                                    if (link) {
-                                        router.push(link);
-                                    }
-                                },
+                    toast.message(`${payload.notification?.title}`, {
+                        action: {
+                            label: 'Visit',
+                            onClick: () => {
+                                const link =
+                                    payload.fcmOptions?.link ||
+                                    payload.data?.link;
+                                if (link) {
+                                    router.push(link);
+                                }
                             },
                         },
-                    );
+                        description: payload.notification?.body || '',
+                    });
                 } else {
-                    toast.info(
-                        `${payload.notification?.title}: ${payload.notification?.body}`,
-                    );
+                    toast.message(`${payload.notification?.title}`, {
+                        description: payload.notification?.body || '',
+                    });
                 }
 
                 // --------------------------------------------
