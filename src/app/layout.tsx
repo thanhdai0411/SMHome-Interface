@@ -32,7 +32,7 @@ export default function RootLayout({
                         </ClerkLoading>
                         <ClerkLoaded>{children}</ClerkLoaded>
                     </ThemeProvider>
-                    <Toaster richColors position="top-right" />
+                    <Toaster richColors position="top-right" expand={true} />
                 </body>
             </html>
         </ClerkProviderr>

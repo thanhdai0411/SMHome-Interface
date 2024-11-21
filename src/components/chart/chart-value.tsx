@@ -61,7 +61,6 @@ export function ChartValue({ node }: ChartValueProps) {
         const startTime = date?.from;
         const endTime = date?.to;
 
-        console.log('get data sensor ');
         if (startTime && endTime) {
             const listSensorOfNode = node?.sensorItem || [];
 
@@ -77,7 +76,6 @@ export function ChartValue({ node }: ChartValueProps) {
                     }),
                 );
 
-                console.log({ listSensorOfNode, resDataSensor });
 
                 const mergeData = resDataSensor.flat().map((v) => ({
                     ...v,
