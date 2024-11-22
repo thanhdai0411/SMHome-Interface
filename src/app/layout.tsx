@@ -32,7 +32,22 @@ export default function RootLayout({
                         </ClerkLoading>
                         <ClerkLoaded>{children}</ClerkLoaded>
                     </ThemeProvider>
-                    <Toaster richColors position="top-right" expand={true} />
+                    <Toaster
+                        closeButton
+                        position="top-right"
+                        duration={5000}
+                        expand={true}
+                        theme='light'
+                        toastOptions={{
+                            classNames: {
+                                title: 'text-orange-500 text-lg',
+                                description: 'text-base',
+                                closeButton: 'bg-slate-50 text-red-400',
+                                
+                            },
+                        }}
+                        
+                    />
                 </body>
             </html>
         </ClerkProviderr>
