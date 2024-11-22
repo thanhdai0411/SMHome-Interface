@@ -89,7 +89,10 @@ const useFcmToken = () => {
         isLoading.current = false;
 
         // save token user
-        saveTokenWithUser(token, userLogin?.user?.id);
+
+        if (process.env.NODE_ENV != 'development') {
+            saveTokenWithUser(token, userLogin?.user?.id);
+        }
     }, [userLogin]);
 
     useEffect(() => {
@@ -113,6 +116,8 @@ const useFcmToken = () => {
 
                 console.log('Foreground push notification received:', payload);
                 const link = payload.fcmOptions?.link || payload.data?.link;
+                const audio = new Audio("sound/alarm-alert.mp3");
+                audio.play();
 
                 if (link) {
                     toast.message(`${payload.notification?.title}`, {
