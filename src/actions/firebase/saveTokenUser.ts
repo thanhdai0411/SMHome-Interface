@@ -26,11 +26,8 @@ export const saveTokenWithUser = async (
 
             if (!isExist) {
                 const collectionRoot = collection(
-                    doc(
-                        collection(dbFirestore, FIRESTORE_ROOT_NOTIFICATION),
-                        userId,
-                    ),
-                    'tokens',
+                    dbFirestore,
+                    FIRESTORE_ROOT_NOTIFICATION,
                 );
 
                 await addDoc(collectionRoot, {
@@ -49,11 +46,8 @@ export const getTokenWithUser = async (userId: string) => {
     try {
         if (userId) {
             const collectionRoot = collection(
-                doc(
-                    collection(dbFirestore, FIRESTORE_ROOT_NOTIFICATION),
-                    userId,
-                ),
-                'tokens',
+                dbFirestore,
+                FIRESTORE_ROOT_NOTIFICATION,
             );
 
             const querySnapshot = await getDocs(collectionRoot);

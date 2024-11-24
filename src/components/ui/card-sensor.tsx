@@ -15,7 +15,6 @@ function CardSensor({
     value,
     isAlert = false,
 }: CardSensorProps) {
-    console.log({ennn : process.env.NODE_ENV})
     return (
         <Card id={isAlert ? 'blink' : undefined} className={className}>
             <div className="flex rounded-md p-4">

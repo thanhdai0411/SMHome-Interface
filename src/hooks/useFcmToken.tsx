@@ -3,6 +3,8 @@
 import { fetchToken } from '@/actions/firebase/fetchToken';
 import { saveTokenWithUser } from '@/actions/firebase/saveTokenUser';
 import { messaging } from '@/configs/firebase';
+import { delay } from '@/utils/delay';
+import { playSound } from '@/utils/playSound';
 import { useUser } from '@clerk/nextjs';
 import { onMessage, Unsubscribe } from 'firebase/messaging';
 import { useRouter } from 'next/navigation';
@@ -65,7 +67,7 @@ const useFcmToken = () => {
         // This step is typical initially as the service worker may not be ready/installed yet.
         if (!token) {
             if (retryLoadToken.current >= 3) {
-                alert('Unable to load token, refresh the browser');
+                // alert('Unable to load token, refresh the browser');
                 console.info(
                     '%cPush Notifications issue - unable to load token after 3 retries',
                     'color: green; background: #c7c7c7; padding: 8px; font-size: 20px',
@@ -111,13 +113,13 @@ const useFcmToken = () => {
             if (!m) return;
 
             // Step 9: Register a listener for incoming FCM messages.
-            const unsubscribe = onMessage(m, (payload) => {
+            const unsubscribe = onMessage(m, async (payload) => {
                 if (Notification.permission !== 'granted') return;
 
                 console.log('Foreground push notification received:', payload);
                 const link = payload.fcmOptions?.link || payload.data?.link;
-                const audio = new Audio("sound/alarm-alert.mp3");
-                audio.play();
+                
+                playSound();
 
                 if (link) {
                     toast.message(`${payload.notification?.title}`, {

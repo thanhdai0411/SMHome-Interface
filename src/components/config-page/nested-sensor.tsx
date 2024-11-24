@@ -1,5 +1,6 @@
-import { removeDevice } from '@/actions/firebase/deviceConfig';
-import { MonitorSmartphone, ThermometerSun, Trash2, Zap } from 'lucide-react';
+import { removeSensor } from '@/actions/firebase/sensorConfig';
+import { ThermometerSun, Trash2 } from 'lucide-react';
+import { useState } from 'react';
 import { Control, useFieldArray } from 'react-hook-form';
 import { toast } from 'sonner';
 import {
@@ -9,12 +10,10 @@ import {
     AccordionTrigger,
 } from '../ui/accordion';
 import { Button } from '../ui/button';
+import Chip from '../ui/chip';
+import DialogConfirm from '../ui/dialog-confirm';
 import FormHook from '../ui/form-hook';
 import SwitchHook from '../ui/switch-hook';
-import { removeSensor } from '@/actions/firebase/sensorConfig';
-import { useState } from 'react';
-import DialogConfirm from '../ui/dialog-confirm';
-import Chip from '../ui/chip';
 
 interface NestedSensorProps {
     nestIndex: number;
@@ -38,6 +37,7 @@ function NestedSensor({ nestIndex, control, getValues }: NestedSensorProps) {
                 name: '',
                 icon: '',
                 active: true,
+                isAlert : false,
                 style: 'bg-gradient-to-r from-yellow-500',
             },
         ]);
