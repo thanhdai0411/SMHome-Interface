@@ -69,6 +69,10 @@ function DialogAddNode({
         const data = form.getValues('nodeItem');
         const dataIndex = data[index];
 
+        console.log({
+            dataIndex
+        })
+
         if (dataIndex && dataIndex.nodeId && dataIndex.name) {
             let deviceItem = dataIndex?.deviceItem || [];
             let sensorItem = dataIndex?.sensorItem || [];
@@ -99,6 +103,7 @@ function DialogAddNode({
                         icon: v?.icon ?? '',
                         minThreshold: v?.minThreshold ?? '',
                         maxThreshold: v?.maxThreshold ?? '',
+                        isAlert: v?.isAlert || false,
                     };
                 });
                 dataNodeConfig.sensorItem = sensorItem;

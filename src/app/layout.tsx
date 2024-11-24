@@ -40,9 +40,9 @@ export default function RootLayout({
                         theme='light'
                         toastOptions={{
                             classNames: {
-                                title: 'text-orange-500 text-lg',
+                                title: 'text-orange-500 text-base',
                                 description: 'text-base',
-                                closeButton: 'bg-slate-50 text-red-400',
+                                closeButton: 'bg-yellow-300 text-red-400',
                                 
                             },
                         }}
