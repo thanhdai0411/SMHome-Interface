@@ -2,7 +2,7 @@
 
 import { getSensor, ISensorConfigDTO } from '@/actions/firebase/sensorConfig';
 import { ThermometerSun } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import CardSensor from '../ui/card-sensor';
 
 interface SensorControlProps {
@@ -28,6 +28,29 @@ function SensorControl({ nodeId, sensorData }: SensorControlProps) {
         return () => unsubscribe();
     }, [value, sensorData.sensorId, nodeId]);
 
+    const isAllowAlertBlink = useMemo(() => {
+        let allow = false;
+        if (sensorData.isAlert == true) {
+            allow = Number(value) == 1 ? true : false;
+        } else if (sensorData.isAlertThreshold) {
+            if (sensorData?.minThreshold) {
+                allow =
+                    Number(value) < Number(sensorData?.minThreshold)
+                        ? true
+                        : false;
+            }
+
+            if (sensorData?.maxThreshold) {
+                allow =
+                    Number(value) > Number(sensorData?.maxThreshold)
+                        ? true
+                        : false;
+            }
+        }
+
+        return allow;
+    }, [value, sensorData]);
+
     return (
         <>
             <CardSensor
@@ -35,11 +58,7 @@ function SensorControl({ nodeId, sensorData }: SensorControlProps) {
                 name={sensorData.name}
                 value={`${value} ${sensorData?.unit || ''}`}
                 icon={sensorData.icon}
-                isAlert={
-                    sensorData.isAlert == true && String(value) == '1'
-                        ? true
-                        : false
-                }
+                isAlert={isAllowAlertBlink}
             />
         </>
     );

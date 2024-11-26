@@ -104,6 +104,7 @@ function DialogAddNode({
                         minThreshold: v?.minThreshold ?? '',
                         maxThreshold: v?.maxThreshold ?? '',
                         isAlert: v?.isAlert || false,
+                        isAlertThreshold: v?.isAlertThreshold || false,
                     };
                 });
                 dataNodeConfig.sensorItem = sensorItem;
