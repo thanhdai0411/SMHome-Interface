@@ -38,6 +38,7 @@ function NestedSensor({ nestIndex, control, getValues }: NestedSensorProps) {
                 icon: '',
                 active: true,
                 isAlert : false,
+                isAlertThreshold : false,
                 style: 'bg-gradient-to-r from-yellow-500',
             },
         ]);
@@ -181,7 +182,15 @@ function NestedSensor({ nestIndex, control, getValues }: NestedSensorProps) {
                                     <div className="flex items-center space-x-2 my-4">
                                         <SwitchHook
                                             control={control}
-                                            label={"Loại alert"}
+                                            label={"Alert Vượt ngưỡng"}
+                                            name={`nodeItem.${nestIndex}.sensorItem.${index}.isAlertThreshold`}
+                                        />
+                                    </div>
+
+                                    <div className="flex items-center space-x-2 my-4">
+                                        <SwitchHook
+                                            control={control}
+                                            label={"Alert 1/0"}
                                             name={`nodeItem.${nestIndex}.sensorItem.${index}.isAlert`}
                                         />
                                     </div>

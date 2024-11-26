@@ -24,6 +24,7 @@ import moment from 'moment';
 import { DateRange } from 'react-day-picker';
 import { DatePickerWithRange } from '../ui/date-picker';
 import { INodeConfigDTO } from '@/actions/firebase/nodeConfig';
+import { HUMI_SENSOR_ID, TEMP_SENSOR_ID } from '@/constants/node-config';
 
 export const description = 'An interactive area chart';
 
@@ -76,7 +77,6 @@ export function ChartValue({ node }: ChartValueProps) {
                     }),
                 );
 
-
                 const mergeData = resDataSensor.flat().map((v) => ({
                     ...v,
                     date: moment(v.timestamp.toDate()).format(
@@ -121,7 +121,7 @@ export function ChartValue({ node }: ChartValueProps) {
         if (node && node?.sensorItem && node?.sensorItem?.length > 0) {
             const listSensorId = node.sensorItem
                 .map((v) => v.sensorId)
-                .filter((v2) => v2);
+                .filter((v2) => v2 == TEMP_SENSOR_ID || v2 == HUMI_SENSOR_ID);
 
             const myChartConfig: ChartConfig = {};
 

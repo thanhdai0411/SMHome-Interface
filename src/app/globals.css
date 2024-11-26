@@ -94,6 +94,9 @@
 
     100% {
         background-color: red;
+        box-shadow: 0px 0px 6px 5px red;
+        color : rgb(225, 255, 0);
+        border-color : rgb(225, 255, 0)
     }
 }
 #blink {

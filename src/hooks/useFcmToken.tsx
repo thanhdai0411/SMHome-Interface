@@ -92,9 +92,9 @@ const useFcmToken = () => {
 
         // save token user
 
-        if (process.env.NODE_ENV != 'development') {
-            saveTokenWithUser(token, userLogin?.user?.id);
-        }
+        // if (process.env.NODE_ENV != 'development') {
+        //     saveTokenWithUser(token, userLogin?.user?.id);
+        // }
     }, [userLogin]);
 
     useEffect(() => {
@@ -118,7 +118,7 @@ const useFcmToken = () => {
 
                 console.log('Foreground push notification received:', payload);
                 const link = payload.fcmOptions?.link || payload.data?.link;
-                
+
                 playSound();
 
                 if (link) {
