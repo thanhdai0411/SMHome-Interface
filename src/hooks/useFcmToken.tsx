@@ -3,7 +3,6 @@
 import { fetchToken } from '@/actions/firebase/fetchToken';
 import { saveTokenWithUser } from '@/actions/firebase/saveTokenUser';
 import { messaging } from '@/configs/firebase';
-import { delay } from '@/utils/delay';
 import { playSound } from '@/utils/playSound';
 import { useUser } from '@clerk/nextjs';
 import { onMessage, Unsubscribe } from 'firebase/messaging';
@@ -92,9 +91,9 @@ const useFcmToken = () => {
 
         // save token user
 
-        // if (process.env.NODE_ENV != 'development') {
-        //     saveTokenWithUser(token, userLogin?.user?.id);
-        // }
+        if (process.env.NODE_ENV != 'development') {
+            saveTokenWithUser(token, userLogin?.user?.id);
+        }
     }, [userLogin]);
 
     useEffect(() => {
