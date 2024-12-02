@@ -34,9 +34,13 @@ export default function RootLayout({
                     </ThemeProvider>
                     <Toaster
                         closeButton
+                        richColors
                         position="top-right"
                         duration={5000}
                         expand={true}
+                        style={{
+                            zIndex: 100000000000000000000000000000
+                        }}
                         theme='light'
                         toastOptions={{
                             classNames: {
