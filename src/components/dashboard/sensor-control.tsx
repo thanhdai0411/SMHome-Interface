@@ -1,9 +1,11 @@
 'use client';
 
 import { getSensor, ISensorConfigDTO } from '@/actions/firebase/sensorConfig';
-import { ThermometerSun } from 'lucide-react';
+import { GAS_SENSOR_ID, SR_SENSOR_ID } from '@/constants/node-config';
 import { useEffect, useMemo, useState } from 'react';
+import { toast, Toaster } from 'sonner';
 import CardSensor from '../ui/card-sensor';
+import { playSound } from '@/utils/playSound';
 
 interface SensorControlProps {
     nodeId: string;
@@ -51,8 +53,32 @@ function SensorControl({ nodeId, sensorData }: SensorControlProps) {
         return allow;
     }, [value, sensorData]);
 
+    const notificationAlert = (title: string, desc: string) => {
+        toast.message(title, {
+            description: desc,
+        });
+        playSound(10);
+    };
+
+    useEffect(() => {
+        const sensorCheckId = sensorData.sensorId;
+        if (value == 1 && sensorCheckId == SR_SENSOR_ID) {
+            notificationAlert(
+                'Cảnh bảo chuyển động',
+                'Phát hiện có người đi qua',
+            );
+        }
+
+        if (value == 1 && sensorCheckId == GAS_SENSOR_ID) {
+            notificationAlert(
+                'Phát hiện cháy nổ',
+                'Phát hiện có rò rỉ khí gas. Gây cháy nổ',
+            );
+        }
+    }, [value, sensorData]);
+
     return (
-        <>
+        <div>
             <CardSensor
                 className={sensorData?.style || ''}
                 name={sensorData.name}
@@ -60,7 +86,26 @@ function SensorControl({ nodeId, sensorData }: SensorControlProps) {
                 icon={sensorData.icon}
                 isAlert={isAllowAlertBlink}
             />
-        </>
+
+            <Toaster
+                closeButton
+                richColors
+                position="top-right"
+                duration={5000}
+                expand={true}
+                style={{
+                    position: 'absolute',
+                }}
+                theme="light"
+                toastOptions={{
+                    classNames: {
+                        title: 'text-orange-500 text-base',
+                        description: 'text-base',
+                        closeButton: 'bg-yellow-300 text-red-400',
+                    },
+                }}
+            />
+        </div>
     );
 }
 
