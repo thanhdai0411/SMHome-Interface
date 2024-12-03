@@ -18,7 +18,7 @@ import {
     IDeviceConfigDTO,
     setConfigDevice,
 } from '@/actions/firebase/deviceConfig';
-import { INodeConfigDTO, setNodeConfig } from '@/actions/firebase/nodeConfig';
+import { getNode, INodeConfigDTO, setNodeConfig } from '@/actions/firebase/nodeConfig';
 import {
     ISensorConfigDTO,
     setConfigSensor,
@@ -37,6 +37,7 @@ interface DialogAddNodeProps {
     setOpen: Dispatch<SetStateAction<boolean>>;
     dataEdit?: INodeConfigDTO | null;
     setDataEdit?: Dispatch<SetStateAction<INodeConfigDTO | null>>;
+    callBackCallDevice: (data: any) => void;
 }
 
 interface NodeItemForm extends INodeConfigDTO {
@@ -53,6 +54,7 @@ function DialogAddNode({
     setOpen,
     dataEdit,
     setDataEdit,
+    callBackCallDevice,
 }: DialogAddNodeProps) {
     // define form
     const form = useForm<NodeConfigForm>({
@@ -68,10 +70,6 @@ function DialogAddNode({
     const handleSaveConfig = (index: number) => {
         const data = form.getValues('nodeItem');
         const dataIndex = data[index];
-
-        console.log({
-            dataIndex
-        })
 
         if (dataIndex && dataIndex.nodeId && dataIndex.name) {
             let deviceItem = dataIndex?.deviceItem || [];
@@ -138,6 +136,11 @@ function DialogAddNode({
                     ? 'Chỉnh sửa cấu hình thành công'
                     : 'Thêm cấu hình thành công',
             );
+
+            getNode({
+                callBack: callBackCallDevice,
+            });
+
             setOpen(false);
             setDataEdit && setDataEdit(null);
         } else {

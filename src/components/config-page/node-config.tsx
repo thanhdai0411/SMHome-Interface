@@ -12,6 +12,7 @@ import { Button } from '../ui/button';
 import DialogConfirm from '../ui/dialog-confirm';
 import { CardConfig } from './card-config';
 import DialogAddNode from './dialog-add-node';
+import { setNodeConfigLocal } from '@/hooks/useFetchConfigNode';
 
 function NodeConfig() {
     const [nodeConfig, setNodeConfigS] = useState<INodeConfigDTO[]>([]);
@@ -22,6 +23,7 @@ function NodeConfig() {
     const [dialogDelete, setDialogDelete] = useState<boolean>(false);
 
     const callBackCallDevice = (data: any) => {
+        setNodeConfigLocal(data);
         const key = Object.keys(data);
 
         if (key && key.length > 0) {
@@ -65,6 +67,9 @@ function NodeConfig() {
                 active: checked,
             });
 
+            getNode({
+                callBack: callBackCallDevice,
+            });
             const textToast =
                 checked == true
                     ? `Kích hoạt Node ${dataById.name} Thành công`
@@ -121,6 +126,7 @@ function NodeConfig() {
                     setOpen={setDialogConfig}
                     dataEdit={dataEdit}
                     setDataEdit={setDataEdit}
+                    callBackCallDevice={callBackCallDevice}
                 />
             )}
 

@@ -28,9 +28,9 @@ export default function MainLayout({
                 {children}
             </main>
 
-            <SignedIn>
+            {/* <SignedIn>
                 <FCMNotify />
-            </SignedIn>
+            </SignedIn> */}
 
             {/* <footer
                 className={cn(
