@@ -16,7 +16,6 @@ export const getNodeConfigLocal = () => {
 };
 
 function useFetchConfigNode() {
-    console.log('runnn cnofig hook');
     const callBackCallDevice = (data: any) => {
         setNodeConfigLocal(data);
     };
