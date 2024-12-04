@@ -1,11 +1,17 @@
 'use client';
 
 import { getSensor, ISensorConfigDTO } from '@/actions/firebase/sensorConfig';
-import { GAS_SENSOR_ID, SR_SENSOR_ID } from '@/constants/node-config';
+import {
+    GAS_SENSOR_ID,
+    HUMI_SENSOR_ID,
+    SR_SENSOR_ID,
+    TEMP_SENSOR_ID,
+} from '@/constants/node-config';
 import { useEffect, useMemo, useState } from 'react';
 import { toast, Toaster } from 'sonner';
 import CardSensor from '../ui/card-sensor';
 import { playSound } from '@/utils/playSound';
+import { getNodeConfigLocal } from '@/hooks/useFetchConfigNode';
 
 interface SensorControlProps {
     nodeId: string;
@@ -13,7 +19,7 @@ interface SensorControlProps {
 }
 
 function SensorControl({ nodeId, sensorData }: SensorControlProps) {
-    const [value, setValue] = useState<number>(0);
+    const [value, setValue] = useState<number | null>(null);
 
     const callBackCallDevice = (data: any) => {
         setValue(data?.value || 0);
@@ -61,21 +67,55 @@ function SensorControl({ nodeId, sensorData }: SensorControlProps) {
     };
 
     useEffect(() => {
+        if (!value) return;
         const sensorCheckId = sensorData.sensorId;
-        if (value == 1 && sensorCheckId == SR_SENSOR_ID) {
+        const configNodes = getNodeConfigLocal();
+
+        const { acitve: activeNode, name: nameNode } =
+            configNodes?.[nodeId]?.config;
+
+        if (activeNode == false) return;
+
+        const {
+            active,
+            maxThreshold,
+            minThreshold,
+            name: nameSensor,
+        } = configNodes?.[nodeId]?.[sensorCheckId]?.config;
+
+        if (value == 1 && sensorCheckId == SR_SENSOR_ID && active == true) {
             notificationAlert(
-                'Cảnh bảo chuyển động',
+                `Cảnh bảo chuyển động ${nameNode}`,
                 'Phát hiện có người đi qua',
             );
         }
 
-        if (value == 1 && sensorCheckId == GAS_SENSOR_ID) {
+        if (value == 1 && sensorCheckId == GAS_SENSOR_ID && active == true) {
             notificationAlert(
-                'Phát hiện cháy nổ',
-                'Phát hiện có rò rỉ khí gas. Gây cháy nổ',
+                `Phát hiện cháy nổ ${nameNode}`,
+                'Phát hiện có rò rỉ khí gas',
             );
         }
-    }, [value, sensorData]);
+
+        // notify temp and humi
+        if ([TEMP_SENSOR_ID, HUMI_SENSOR_ID].includes(sensorCheckId)) {
+            if (active == true && minThreshold && maxThreshold) {
+                if (Number(value) < Number(minThreshold)) {
+                    notificationAlert(
+                        `Cảnh báo ${nameNode}`,
+                        `${nameSensor} có giá trị ${value} vượt ngưỡng MIN ${minThreshold}`,
+                    );
+                }
+
+                if (Number(value) > Number(maxThreshold)) {
+                    notificationAlert(
+                        `Cảnh báo ${nameNode}`,
+                        `${nameSensor} có giá trị ${value} vượt ngưỡng MAX ${maxThreshold}`,
+                    );
+                }
+            }
+        }
+    }, [value, sensorData, nodeId]);
 
     return (
         <div>

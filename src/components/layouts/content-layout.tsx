@@ -1,4 +1,7 @@
+'use client';
+
 import { Navbar } from '@/components/admin-panel/navbar';
+import useFetchConfigNode from '@/hooks/useFetchConfigNode';
 
 interface ContentLayoutProps {
     title: string;
@@ -6,6 +9,7 @@ interface ContentLayoutProps {
 }
 
 export function ContentLayout({ title, children }: ContentLayoutProps) {
+    useFetchConfigNode();
     return (
         <div>
             <Navbar title={title} />

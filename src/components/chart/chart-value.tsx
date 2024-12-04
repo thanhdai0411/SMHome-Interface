@@ -25,6 +25,8 @@ import { DateRange } from 'react-day-picker';
 import { DatePickerWithRange } from '../ui/date-picker';
 import { INodeConfigDTO } from '@/actions/firebase/nodeConfig';
 import { HUMI_SENSOR_ID, TEMP_SENSOR_ID } from '@/constants/node-config';
+import { findAllDataSensor } from '@/actions/mongo/sensor/findAll';
+import { SensorDocument } from '@/models/sensor';
 
 export const description = 'An interactive area chart';
 
@@ -58,7 +60,7 @@ export function ChartValue({ node }: ChartValueProps) {
     const [dataChart, setDataChart] = useState<any[]>([]);
     const [sensorIds, setSensorIds] = useState<string[]>([]);
 
-    const handleGetDataSensor = async (sensorIds: string[]) => {
+    const handleGetDataSensor = async (sensorIds: string[], nodeId: string) => {
         const startTime = date?.from;
         const endTime = date?.to;
 
@@ -66,22 +68,20 @@ export function ChartValue({ node }: ChartValueProps) {
             const listSensorOfNode = node?.sensorItem || [];
 
             if (listSensorOfNode.length > 0) {
-                const resDataSensor = await Promise.all(
-                    listSensorOfNode.map((v) => {
-                        return getDataSensor(
-                            node.nodeId,
-                            v.sensorId,
-                            moment(startTime).startOf('date').toISOString(),
-                            moment(endTime).endOf('date').toISOString(),
-                        );
-                    }),
+                const resDataSensor: SensorDocument[] = await findAllDataSensor(
+                    {
+                        sensorIds,
+                        nodeId: nodeId,
+                        startDate: moment(startTime)
+                            .startOf('date')
+                            .toISOString(),
+                        endDate: moment(endTime).endOf('date').toISOString(),
+                    },
                 );
 
                 const mergeData = resDataSensor.flat().map((v) => ({
                     ...v,
-                    date: moment(v.timestamp.toDate()).format(
-                        'DD/MM/YYYY HH:mm:ss',
-                    ),
+                    date: moment(v.time).format('DD/MM/YYYY HH:mm:ss'),
                 }));
 
                 const groupData = new Map();
@@ -96,7 +96,7 @@ export function ChartValue({ node }: ChartValueProps) {
                         });
                     }
 
-                    groupData.get(key).data[v.sensorId] = Number(v.value);
+                    groupData.get(key).data[v.sensor_id] = Number(v.value);
                 });
 
                 const res = Array.from(groupData.values()).map((v) => {
@@ -134,7 +134,7 @@ export function ChartValue({ node }: ChartValueProps) {
             });
             setSensorIds(listSensorId);
             setChartConfig(myChartConfig);
-            handleGetDataSensor(listSensorId);
+            handleGetDataSensor(listSensorId, node.nodeId);
         } else {
             setDataChart([]);
         }
