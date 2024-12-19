@@ -30,7 +30,7 @@ function CardSwitch({
     });
 
     return (
-        <Card className={cn(className)}>
+        <Card className={className}>
             <div className=" flex rounded-md  p-4">
                 <div className="flex-1 space-y-4">
                     <Icon

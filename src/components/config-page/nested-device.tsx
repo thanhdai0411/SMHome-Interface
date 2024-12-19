@@ -151,7 +151,7 @@ function NestedDevice({ nestIndex, control, getValues }: NestedDeviceProps) {
                                             label="Icon"
                                         />
 
-                                        <FormHook
+                                        {/* <FormHook
                                             control={control}
                                             name={`nodeItem.${nestIndex}.deviceItem.${index}.styleON`}
                                             label="Style ON"
@@ -161,7 +161,7 @@ function NestedDevice({ nestIndex, control, getValues }: NestedDeviceProps) {
                                             control={control}
                                             name={`nodeItem.${nestIndex}.deviceItem.${index}.styleOFF`}
                                             label="Style OFF"
-                                        />
+                                        /> */}
                                     </div>
                                     <div className="flex items-center space-x-2 mt  mt-4">
                                         <SwitchHook

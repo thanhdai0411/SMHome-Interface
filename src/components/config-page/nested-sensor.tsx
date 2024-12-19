@@ -156,11 +156,11 @@ function NestedSensor({ nestIndex, control, getValues }: NestedSensorProps) {
                                             name={`nodeItem.${nestIndex}.sensorItem.${index}.icon`}
                                             label="Icon"
                                         />
-                                        <FormHook
+                                        {/* <FormHook
                                             control={control}
                                             name={`nodeItem.${nestIndex}.sensorItem.${index}.style`}
                                             label="Style"
-                                        />
+                                        /> */}
                                         <FormHook
                                             control={control}
                                             name={`nodeItem.${nestIndex}.sensorItem.${index}.minThreshold`}
