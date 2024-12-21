@@ -108,6 +108,7 @@ function NodeConfig() {
                     <CardConfig
                         key={v.nodeId + index}
                         nodeName={v.name}
+                        nodeId={v.nodeId}
                         onClickEdit={() => handleClickEdit(v.nodeId)}
                         onClickDelete={() => handleClickDelete(v.nodeId)}
                         onCheckedChange={(checked) =>
