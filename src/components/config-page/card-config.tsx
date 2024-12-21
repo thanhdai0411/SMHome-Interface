@@ -14,6 +14,7 @@ import Chip from '../ui/chip';
 
 interface CardConfigProps extends React.ComponentProps<typeof Card> {
     nodeName: string;
+    nodeId: string;
     onClickEdit: () => void;
     onClickDelete: () => void;
     onCheckedChange: (checked: boolean) => void;
@@ -28,6 +29,7 @@ export function CardConfig({
     onClickEdit,
     onClickDelete,
     onCheckedChange,
+    nodeId,
     amountDevice,
     amountSensor,
     active,
@@ -39,9 +41,12 @@ export function CardConfig({
                 <CardTitle className="text-xl text-yellow-400">
                     {nodeName}
                 </CardTitle>
+
                 <Switch onCheckedChange={onCheckedChange} checked={active} />
             </CardHeader>
+
             <CardContent className="grid gap-4">
+                <p className="text-sm font-bold">{nodeId}</p>
                 <p className="text-sm text-muted-foreground">
                     Cấu hình Node {nodeName}. Cân nhắc trước khi xóa hoặc chỉnh
                     sửa

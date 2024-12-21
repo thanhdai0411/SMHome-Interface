@@ -22,13 +22,12 @@ export const findAllDataSensor = async ({
             sensor_id: { $in: sensorIds },
             node_id: nodeId,
             time: { $gte: new Date(startDate), $lte: new Date(endDate) },
-        }
+        };
 
         const res = await SensorModel.find(query);
 
         return res;
     } catch (e) {
-        console.log(e);
         return [];
     }
 };

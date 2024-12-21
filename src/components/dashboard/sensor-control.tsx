@@ -78,19 +78,21 @@ function SensorControl({ nodeId, sensorData }: SensorControlProps) {
 
         const {
             active,
+            isAlert,
+            isAlertThreshold, 
             maxThreshold,
             minThreshold,
             name: nameSensor,
         } = configNodes?.[nodeId]?.[sensorCheckId]?.config;
 
-        if (value == 1 && sensorCheckId == SR_SENSOR_ID && active == true) {
+        if (value == 1 && sensorCheckId == SR_SENSOR_ID && active == true && isAlert == true) {
             notificationAlert(
                 `Cảnh bảo chuyển động ${nameNode}`,
                 'Phát hiện có người đi qua',
             );
         }
 
-        if (value == 1 && sensorCheckId == GAS_SENSOR_ID && active == true) {
+        if (value == 1 && sensorCheckId == GAS_SENSOR_ID && active == true && isAlert == true) {
             notificationAlert(
                 `Phát hiện cháy nổ ${nameNode}`,
                 'Phát hiện có rò rỉ khí gas',
@@ -99,7 +101,7 @@ function SensorControl({ nodeId, sensorData }: SensorControlProps) {
 
         // notify temp and humi
         if ([TEMP_SENSOR_ID, HUMI_SENSOR_ID].includes(sensorCheckId)) {
-            if (active == true && minThreshold && maxThreshold) {
+            if (active == true && minThreshold && maxThreshold && isAlertThreshold == true) {
                 if (Number(value) < Number(minThreshold)) {
                     notificationAlert(
                         `Cảnh báo ${nameNode}`,
