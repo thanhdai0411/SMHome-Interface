@@ -18,7 +18,11 @@ import {
     IDeviceConfigDTO,
     setConfigDevice,
 } from '@/actions/firebase/deviceConfig';
-import { getNode, INodeConfigDTO, setNodeConfig } from '@/actions/firebase/nodeConfig';
+import {
+    getNode,
+    INodeConfigDTO,
+    setNodeConfig,
+} from '@/actions/firebase/nodeConfig';
 import {
     ISensorConfigDTO,
     setConfigSensor,
@@ -78,6 +82,7 @@ function DialogAddNode({
             const dataNodeConfig: INodeConfigDTO = {
                 ...dataIndex,
                 active: dataIndex?.active ?? false,
+                cameraUrl: dataIndex?.cameraUrl || '',
             };
 
             if (deviceItem.length > 0) {
@@ -197,6 +202,11 @@ function DialogAddNode({
                                             control={form.control}
                                             name={`nodeItem.${0}.nodeId`}
                                             label="Node ID"
+                                        />
+                                        <FormHook
+                                            control={form.control}
+                                            name={`nodeItem.${0}.cameraUrl`}
+                                            label="Camera URL"
                                         />
 
                                         {/* <FormHook

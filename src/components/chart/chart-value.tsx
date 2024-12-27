@@ -51,9 +51,10 @@ interface ChartValueProps {
 
 export function ChartValue({ node }: ChartValueProps) {
     const [date, setDate] = useState<DateRange | undefined>({
-        from: addDays(new Date(), -30),
+        from: addDays(new Date(), -7),
         to: new Date(),
     });
+    const [loadingAction, setLoadingAction] = useState<boolean>(false);
 
     const [chartConfig, setChartConfig] = useState<ChartConfig>();
 
@@ -68,25 +69,24 @@ export function ChartValue({ node }: ChartValueProps) {
             const listSensorOfNode = node?.sensorItem || [];
 
             if (listSensorOfNode.length > 0) {
-                const resDataSensor: SensorDocument[] = await findAllDataSensor(
-                    {
-                        sensorIds,
-                        nodeId: nodeId,
-                        startDate: moment(startTime)
-                            .startOf('date')
-                            .toISOString(),
-                        endDate: moment(endTime).endOf('date').toISOString(),
-                    },
-                );
+                setLoadingAction(true);
+                const resDataSensor: any = await findAllDataSensor({
+                    sensorIds,
+                    nodeId: nodeId,
+                    startDate: moment(startTime).startOf('date').toISOString(),
+                    endDate: moment(endTime).endOf('date').toISOString(),
+                });
 
-                const mergeData = resDataSensor.flat().map((v) => ({
-                    ...v,
-                    date: moment(v.time).format('DD/MM/YYYY HH:mm:ss'),
-                }));
+                const mergeData = JSON.parse(resDataSensor)
+                    .flat()
+                    .map((v: any) => ({
+                        ...v,
+                        date: moment(v.time).format('DD/MM/YYYY HH:mm:ss'),
+                    }));
 
                 const groupData = new Map();
 
-                mergeData.forEach((v) => {
+                mergeData.forEach((v: any) => {
                     const key = v.date;
                     if (!groupData.get(key)) {
                         groupData.set(key, {
@@ -109,7 +109,7 @@ export function ChartValue({ node }: ChartValueProps) {
 
                     return obj;
                 });
-
+                setLoadingAction(false);
                 setDataChart(res);
             } else {
                 setDataChart([]);
@@ -144,18 +144,18 @@ export function ChartValue({ node }: ChartValueProps) {
         <Card>
             <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
                 <div className="grid flex-1 gap-1 text-center sm:text-left">
-                    <CardTitle>Biểu đồ giá trị {node?.name || ''} </CardTitle>
-                    <CardDescription>
-                        Giá trị nhiệt độ độ ẩm từ{' '}
+                    {/* <CardTitle>Biểu đồ giá trị {node?.name || ''} </CardTitle> */}
+                    {/* <CardDescription>
                         {moment(date?.from).format('DD/MM/YYYY')} tới{' '}
                         {moment(date?.to).format('DD/MM/YYYY')}
-                    </CardDescription>
+                    </CardDescription> */}
                 </div>
 
                 <DatePickerWithRange setDate={setDate} date={date} />
             </CardHeader>
+
             <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
-                {chartConfig && (
+                {chartConfig && !loadingAction && (
                     <ChartContainer
                         config={chartConfig}
                         className="aspect-auto h-[350px] w-full"
