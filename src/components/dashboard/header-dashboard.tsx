@@ -13,6 +13,7 @@ import {
 } from '../ui/select';
 import SensorControl from './sensor-control';
 import SwitchControl from './switch-control';
+import { CameraView } from '../camera/camera-view';
 
 function HeaderDashboard() {
     const [nodeData, setNodeData] = useState<INodeConfigDTO[]>([]);
@@ -121,7 +122,15 @@ function HeaderDashboard() {
                 ))}
             </div>
             {refSelected.current && (
-                <div className="grid  grid-cols-1 grid-rows-1">
+                <div
+                    className={`grid gap-4   sm:grid-cols-1 lg:grid-cols-${refSelected?.current?.cameraUrl ? 2 : 1} grid-rows-1`}
+                >
+                    {refSelected?.current?.cameraUrl && (
+                        <CameraView
+                            cameraUrl={refSelected?.current?.cameraUrl}
+                        />
+                    )}
+
                     <ChartValue node={refSelected.current} />
                 </div>
             )}

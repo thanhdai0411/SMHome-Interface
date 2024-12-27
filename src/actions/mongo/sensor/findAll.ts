@@ -26,7 +26,7 @@ export const findAllDataSensor = async ({
 
         const res = await SensorModel.find(query);
 
-        return res;
+        return JSON.stringify(res);
     } catch (e) {
         return [];
     }

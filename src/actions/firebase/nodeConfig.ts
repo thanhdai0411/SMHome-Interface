@@ -14,6 +14,7 @@ export interface INodeConfigDTO {
     nodeId: string;
     name: string;
     icon: string;
+    cameraUrl?: string;
     color?: string;
     active: boolean;
     styleON?: string;
