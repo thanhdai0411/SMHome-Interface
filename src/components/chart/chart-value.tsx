@@ -20,7 +20,7 @@ import {
     ChartTooltipContent,
 } from '@/components/ui/chart';
 import { addDays } from 'date-fns';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { DateRange } from 'react-day-picker';
 import { DatePickerWithRange } from '../ui/date-picker';
 import { INodeConfigDTO } from '@/actions/firebase/nodeConfig';
@@ -77,40 +77,44 @@ export function ChartValue({ node }: ChartValueProps) {
                     endDate: moment(endTime).endOf('date').toISOString(),
                 });
 
-                const mergeData = JSON.parse(resDataSensor)
-                    .flat()
-                    .map((v: any) => ({
-                        ...v,
-                        date: moment(v.time).format('DD/MM/YYYY HH:mm:ss'),
-                    }));
+                if (resDataSensor && typeof resDataSensor == 'string') {
+                    const mergeData = JSON.parse(resDataSensor)
+                        ?.flat()
+                        ?.map((v: any) => ({
+                            ...v,
+                            date: moment(v.time)
+                                .subtract(7, 'hour')
+                                .format('DD/MM/YYYY HH:mm:ss'),
+                        }));
 
-                const groupData = new Map();
+                    const groupData = new Map();
 
-                mergeData.forEach((v: any) => {
-                    const key = v.date;
-                    if (!groupData.get(key)) {
-                        groupData.set(key, {
-                            data: {
-                                date: key,
-                            },
-                        });
-                    }
-
-                    groupData.get(key).data[v.sensor_id] = Number(v.value);
-                });
-
-                const res = Array.from(groupData.values()).map((v) => {
-                    let obj = v.data;
-                    sensorIds.forEach((v2) => {
-                        if (!obj?.[v2]) {
-                            obj[v2] = 0;
+                    mergeData.forEach((v: any) => {
+                        const key = v.date;
+                        if (!groupData.get(key)) {
+                            groupData.set(key, {
+                                data: {
+                                    date: key,
+                                },
+                            });
                         }
+
+                        groupData.get(key).data[v.sensor_id] = Number(v.value);
                     });
 
-                    return obj;
-                });
-                setLoadingAction(false);
-                setDataChart(res);
+                    const res = Array.from(groupData.values()).map((v) => {
+                        let obj = v.data;
+                        sensorIds.forEach((v2) => {
+                            if (!obj?.[v2]) {
+                                obj[v2] = 0;
+                            }
+                        });
+
+                        return obj;
+                    });
+                    setLoadingAction(false);
+                    setDataChart(res);
+                }
             } else {
                 setDataChart([]);
             }
