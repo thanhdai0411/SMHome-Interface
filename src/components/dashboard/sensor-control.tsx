@@ -95,7 +95,7 @@ function SensorControl({ nodeId, sensorData }: SensorControlProps) {
 
         if (value == 1 && sensorCheckId == GAS_SENSOR_ID && active == true && isAlert == true) {
             notificationAlert(
-                `Cảnh bảo chuyển động ${nameNode}`,
+                `Cảnh bảo khí Gas ${nameNode}`,
                 'Phát hiện khí Gas',
             );
         }
