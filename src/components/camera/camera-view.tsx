@@ -14,5 +14,7 @@ export function CameraView({ cameraUrl }: CameraViewProps) {
             }}
             src={`${cameraUrl}/camera`}
         ></img>
+        // <iframe src={`${cameraUrl}/camera`} frameBorder="0" width="100%" height="500px" allowFullScreen></iframe>
+
     );
 }

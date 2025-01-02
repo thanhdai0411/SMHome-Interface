@@ -21,7 +21,7 @@ async function getData(searchParams: SearchParams): Promise<{
     data: UserMapping[];
     totalCount: number;
 }> {
-    const limit = Number(searchParams.limit || 100);
+    const limit = Number(searchParams.limit || 10);
     const page = Number(searchParams.page || 1);
 
     const { data, totalCount } = await clerkClient?.users?.getUserList({
@@ -36,7 +36,7 @@ async function getData(searchParams: SearchParams): Promise<{
                 const resR =
                     await clerkClient?.users?.getOrganizationMembershipList({
                         userId: v.id,
-                        limit: 100,
+                        limit: 10,
                     });
 
                 return {

@@ -4,6 +4,7 @@ import { getSensor, ISensorConfigDTO } from '@/actions/firebase/sensorConfig';
 import {
     GAS_SENSOR_ID,
     HUMI_SENSOR_ID,
+    SMOKE_SENSOR_ID,
     SR_SENSOR_ID,
     TEMP_SENSOR_ID,
 } from '@/constants/node-config';
@@ -83,7 +84,7 @@ function SensorControl({ nodeId, sensorData }: SensorControlProps) {
             maxThreshold,
             minThreshold,
             name: nameSensor,
-        } = configNodes?.[nodeId]?.[sensorCheckId]?.config;
+        } = {...configNodes?.[nodeId]?.[sensorCheckId]?.config};
 
         if (value == 1 && sensorCheckId == SR_SENSOR_ID && active == true && isAlert == true) {
             notificationAlert(
@@ -92,12 +93,14 @@ function SensorControl({ nodeId, sensorData }: SensorControlProps) {
             );
         }
 
-        if (value == 1 && sensorCheckId == GAS_SENSOR_ID && active == true && isAlert == true) {
+        if (value == 1 && sensorCheckId == SMOKE_SENSOR_ID && active == true && isAlert == true) {
             notificationAlert(
-                `Phát hiện cháy nổ ${nameNode}`,
-                'Phát hiện có rò rỉ khí gas',
+                `Phát hiện khói ${nameNode}`,
+                'Phát hiện có khói',
             );
         }
+
+
 
         // notify temp and humi
         if ([TEMP_SENSOR_ID, HUMI_SENSOR_ID].includes(sensorCheckId)) {
